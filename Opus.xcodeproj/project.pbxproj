@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		471B87DB2352052E002995DB /* Top50AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87DA2352052E002995DB /* Top50AlbumsViewController.swift */; };
+		471B87DD235206CC002995DB /* Top50AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87DC235206CC002995DB /* Top50AlbumCell.swift */; };
 		47C39014234F376E0092D6A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C39013234F376E0092D6A9 /* AppDelegate.swift */; };
 		47C39016234F376E0092D6A9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C39015234F376E0092D6A9 /* SceneDelegate.swift */; };
-		47C39018234F376E0092D6A9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C39017234F376E0092D6A9 /* ViewController.swift */; };
 		47C3901B234F376E0092D6A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47C39019234F376E0092D6A9 /* Main.storyboard */; };
 		47C3901E234F376E0092D6A9 /* Opus.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 47C3901C234F376E0092D6A9 /* Opus.xcdatamodeld */; };
 		47C39020234F37750092D6A9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 47C3901F234F37750092D6A9 /* Assets.xcassets */; };
@@ -36,10 +37,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		471B87DA2352052E002995DB /* Top50AlbumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top50AlbumsViewController.swift; sourceTree = SOURCE_ROOT; };
+		471B87DC235206CC002995DB /* Top50AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top50AlbumCell.swift; sourceTree = "<group>"; };
 		47C39010234F376E0092D6A9 /* Opus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Opus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47C39013234F376E0092D6A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47C39015234F376E0092D6A9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		47C39017234F376E0092D6A9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		47C3901A234F376E0092D6A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		47C3901D234F376E0092D6A9 /* Opus.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Opus.xcdatamodel; sourceTree = "<group>"; };
 		47C3901F234F37750092D6A9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -101,11 +103,11 @@
 		47C39012234F376E0092D6A9 /* Opus */ = {
 			isa = PBXGroup;
 			children = (
+				47C3904D2351ECF20092D6A9 /* Models */,
+				47C3904A2351E3E60092D6A9 /* ViewControllers */,
 				47C39013234F376E0092D6A9 /* AppDelegate.swift */,
 				47C39015234F376E0092D6A9 /* SceneDelegate.swift */,
-				47C39017234F376E0092D6A9 /* ViewController.swift */,
 				47C39019234F376E0092D6A9 /* Main.storyboard */,
-				47C3901F234F37750092D6A9 /* Assets.xcassets */,
 				47C39021234F37760092D6A9 /* LaunchScreen.storyboard */,
 				47C39024234F37760092D6A9 /* Info.plist */,
 				47C3901C234F376E0092D6A9 /* Opus.xcdatamodeld */,
@@ -129,6 +131,23 @@
 				47C3903A234F37760092D6A9 /* Info.plist */,
 			);
 			path = OpusUITests;
+			sourceTree = "<group>";
+		};
+		47C3904A2351E3E60092D6A9 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				471B87DA2352052E002995DB /* Top50AlbumsViewController.swift */,
+				471B87DC235206CC002995DB /* Top50AlbumCell.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		47C3904D2351ECF20092D6A9 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				47C3901F234F37750092D6A9 /* Assets.xcassets */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -263,7 +282,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				47C3901E234F376E0092D6A9 /* Opus.xcdatamodeld in Sources */,
-				47C39018234F376E0092D6A9 /* ViewController.swift in Sources */,
+				471B87DD235206CC002995DB /* Top50AlbumCell.swift in Sources */,
+				471B87DB2352052E002995DB /* Top50AlbumsViewController.swift in Sources */,
 				47C39014234F376E0092D6A9 /* AppDelegate.swift in Sources */,
 				47C39016234F376E0092D6A9 /* SceneDelegate.swift in Sources */,
 			);
