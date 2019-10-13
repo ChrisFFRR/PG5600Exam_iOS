@@ -10,7 +10,11 @@ import Foundation
 
 // JSON: - Root
 struct AlbumResponse: Decodable {
-    var loved: [ArtistDetails]
+    var topAlbums: [ArtistDetails]
+    
+    enum CodingKeys: String, CodingKey {
+        case topAlbums = "loved"
+    }
 }
 
 // JSON: - Loved

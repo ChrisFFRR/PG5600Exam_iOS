@@ -32,7 +32,7 @@ struct Top50AlbumReq {
             }
             do {
                 let albumResponse = try JSONDecoder().decode(AlbumResponse.self, from: jsonData)
-                let albumDetails = albumResponse.loved
+                let albumDetails = albumResponse.topAlbums
                 print(albumDetails[0].idArtist)
 
                 completionHandler(.success(albumDetails))
