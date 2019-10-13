@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		471B87DB2352052E002995DB /* Top50AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87DA2352052E002995DB /* Top50AlbumsViewController.swift */; };
 		471B87DD235206CC002995DB /* Top50AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87DC235206CC002995DB /* Top50AlbumCell.swift */; };
+		471B87DF2352226B002995DB /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87DE2352226B002995DB /* Album.swift */; };
+		471B87E12352249A002995DB /* Top50AlbumReq.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87E02352249A002995DB /* Top50AlbumReq.swift */; };
 		47C39014234F376E0092D6A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C39013234F376E0092D6A9 /* AppDelegate.swift */; };
 		47C39016234F376E0092D6A9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C39015234F376E0092D6A9 /* SceneDelegate.swift */; };
 		47C3901B234F376E0092D6A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47C39019234F376E0092D6A9 /* Main.storyboard */; };
@@ -39,6 +41,8 @@
 /* Begin PBXFileReference section */
 		471B87DA2352052E002995DB /* Top50AlbumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top50AlbumsViewController.swift; sourceTree = SOURCE_ROOT; };
 		471B87DC235206CC002995DB /* Top50AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top50AlbumCell.swift; sourceTree = "<group>"; };
+		471B87DE2352226B002995DB /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		471B87E02352249A002995DB /* Top50AlbumReq.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top50AlbumReq.swift; sourceTree = "<group>"; };
 		47C39010234F376E0092D6A9 /* Opus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Opus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47C39013234F376E0092D6A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47C39015234F376E0092D6A9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -80,6 +84,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		471B87E4235378E6002995DB /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				47C3901F234F37750092D6A9 /* Assets.xcassets */,
+			);
+			path = Assets;
+			sourceTree = "<group>";
+		};
+		471B87E523537976002995DB /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				47C39019234F376E0092D6A9 /* Main.storyboard */,
+				47C39021234F37760092D6A9 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		471B87E623537998002995DB /* API */ = {
+			isa = PBXGroup;
+			children = (
+				471B87E02352249A002995DB /* Top50AlbumReq.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
 		47C39007234F376D0092D6A9 = {
 			isa = PBXGroup;
 			children = (
@@ -103,12 +132,13 @@
 		47C39012234F376E0092D6A9 /* Opus */ = {
 			isa = PBXGroup;
 			children = (
+				471B87E623537998002995DB /* API */,
+				471B87E523537976002995DB /* Storyboards */,
+				471B87E4235378E6002995DB /* Assets */,
 				47C3904D2351ECF20092D6A9 /* Models */,
 				47C3904A2351E3E60092D6A9 /* ViewControllers */,
 				47C39013234F376E0092D6A9 /* AppDelegate.swift */,
 				47C39015234F376E0092D6A9 /* SceneDelegate.swift */,
-				47C39019234F376E0092D6A9 /* Main.storyboard */,
-				47C39021234F37760092D6A9 /* LaunchScreen.storyboard */,
 				47C39024234F37760092D6A9 /* Info.plist */,
 				47C3901C234F376E0092D6A9 /* Opus.xcdatamodeld */,
 			);
@@ -145,7 +175,7 @@
 		47C3904D2351ECF20092D6A9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				47C3901F234F37750092D6A9 /* Assets.xcassets */,
+				471B87DE2352226B002995DB /* Album.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -286,6 +316,8 @@
 				471B87DB2352052E002995DB /* Top50AlbumsViewController.swift in Sources */,
 				47C39014234F376E0092D6A9 /* AppDelegate.swift in Sources */,
 				47C39016234F376E0092D6A9 /* SceneDelegate.swift in Sources */,
+				471B87E12352249A002995DB /* Top50AlbumReq.swift in Sources */,
+				471B87DF2352226B002995DB /* Album.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,12 +8,35 @@
 
 import UIKit
 
-//private let reuseIdentifier = "TopAlbum"
+
+
 
 class Top50AlbumsViewController: UICollectionViewController {
+    var topAlbumList = [ArtistDetail]() {
+        
+        didSet {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                self.navigationItem.title = "\(self.topAlbumList.count) albums found"
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        let albumRequest = Top50AlbumReq()
+        albumRequest.getTopAlbums { [weak self] result in
+            
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let albums):
+                self?.topAlbumList = albums
+            }
+        }
+        
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -38,17 +61,24 @@ class Top50AlbumsViewController: UICollectionViewController {
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
-        return 4
+        return topAlbumList.count
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopAlbum", for: indexPath) as? Top50AlbumCell else {
             fatalError("Unable to dequeue Top50AlbumCell")
         }
+    
+       // let album = topAlbumList[indexPath.row]
+        
+    
+        
         // Add rounded corners
         cell.contentView.layer.masksToBounds = true
         cell.layer.cornerRadius = 10
         
+    
+    
         return cell
     }
 
