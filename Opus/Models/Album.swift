@@ -17,16 +17,19 @@ struct AlbumResponse: Decodable {
 
 // MARK: - TopAlbum
 struct TopAlbums: Decodable {
-    let loved: [ArtistDetail]
+    let albumDetails: [ArtistDetails]
 }
 
 // MARK: - Loved
-struct ArtistDetail: Decodable {
-    let idAlbum, idArtist: String
-    let strAlbum, strArtist, strArtistStripped, intYearReleased: String
-    let strGenre: String
-    let strAlbumThumb: String
+struct ArtistDetails: Decodable {
     
+    struct Loved: Decodable {
+        let idAlbum, idArtist: String
+        let strAlbum, strArtist, strArtistStripped, intYearReleased: String
+        let strGenre: String
+        let strAlbumThumb: String
+    }
+    let loved: [Loved]
 }
 
 

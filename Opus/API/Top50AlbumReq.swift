@@ -23,20 +23,20 @@ struct Top50AlbumReq {
         self.resourceURL = resourceURL
     }
     
-    func getTopAlbums(completionHandler: @escaping(Result<[ArtistDetail], AlbumError>) -> Void) {
-        URLSession.shared.dataTask(with: resourceURL) { data, _, _ in
+    func getTopAlbums(completionHandler: @escaping(Result<[ArtistDetails], AlbumError>) -> Void) {
+       URLSession.shared.dataTask(with: resourceURL) { data, response, error in
 
-            guard let jsonData = data else {
+        guard let jsonData = data else {
                 completionHandler(.failure(.noDataFound))
                 return
             }
             do {
                 let albumResponse = try JSONDecoder().decode(AlbumResponse.self, from: jsonData)
-                print(albumResponse.response.loved)
-                let albumDetails = albumResponse.response.loved
+                let albumDetails = albumResponse.response.albumDetails
 
                 completionHandler(.success(albumDetails))
             } catch {
+                print(error)
                 completionHandler(.failure(.cannotProcessData))
             }
 

@@ -12,7 +12,7 @@ import UIKit
 
 
 class Top50AlbumsViewController: UICollectionViewController {
-    var topAlbumList = [ArtistDetail]() {
+    var topAlbumList = [ArtistDetails]() {
         
         didSet {
             DispatchQueue.main.async {
