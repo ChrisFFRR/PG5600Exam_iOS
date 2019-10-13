@@ -8,28 +8,19 @@
 
 import Foundation
 
-/*
-https://www.youtube.com/watch?v=tdxKIPpPDAI
-*/
+// JSON: - Root
 struct AlbumResponse: Decodable {
-    var response: TopAlbums
+    var loved: [ArtistDetails]
 }
 
-// MARK: - TopAlbum
-struct TopAlbums: Decodable {
-    let albumDetails: [ArtistDetails]
-}
-
-// MARK: - Loved
+// JSON: - Loved
 struct ArtistDetails: Decodable {
     
-    struct Loved: Decodable {
-        let idAlbum, idArtist: String
-        let strAlbum, strArtist, strArtistStripped, intYearReleased: String
-        let strGenre: String
-        let strAlbumThumb: String
-    }
-    let loved: [Loved]
+    let idAlbum, idArtist: String
+    let strAlbum, strArtist, strArtistStripped, intYearReleased: String
+    let strGenre: String
+    let strAlbumThumb: String
+    
 }
 
 
