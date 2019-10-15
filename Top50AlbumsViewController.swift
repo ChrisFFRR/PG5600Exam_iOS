@@ -17,7 +17,7 @@ class Top50AlbumsViewController: UICollectionViewController {
         didSet {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
-                self.navigationItem.title = "\(self.topAlbumList.count) albums found"
+                self.navigationItem.title = "Top \(self.topAlbumList.count) albums"
             }
         }
     }
@@ -26,8 +26,10 @@ class Top50AlbumsViewController: UICollectionViewController {
         super.viewDidLoad()
         
         
-        let albumRequest = Top50AlbumReq()
-        albumRequest.getTopAlbums { [weak self] result in
+        let topAlbums = HttpRequest()
+        
+        
+        topAlbums.getTopAlbums { [weak self] result in
             
             switch result {
             case .failure(let error):
@@ -68,19 +70,27 @@ class Top50AlbumsViewController: UICollectionViewController {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopAlbum", for: indexPath) as? Top50AlbumCell else {
             fatalError("Unable to dequeue Top50AlbumCell")
         }
-    
-       // let album = topAlbumList[indexPath.row]
         
-    
+        let album = topAlbumList[indexPath.row]
+        
+        let imageUrl = URL(string: album.strAlbumThumb)
+        if let data = try? Data(contentsOf: imageUrl!) {
+            let image: UIImage = UIImage(data: data)!
+            cell.albumImage.image = image
+        } else {
+            fatalError()
+        }
+        cell.albumArtist.text = album.strArtist
+        cell.albumTitle.text = album.strAlbum
         
         // Add rounded corners
         cell.contentView.layer.masksToBounds = true
         cell.layer.cornerRadius = 10
         
-    
-    
         return cell
     }
+    
+  
 
     // MARK: UICollectionViewDelegate
 

@@ -13,7 +13,7 @@ enum AlbumError: Error {
     case cannotProcessData
 }
 
-struct Top50AlbumReq {
+class HttpRequest {
     let resourceURL:URL
     
     init() {
