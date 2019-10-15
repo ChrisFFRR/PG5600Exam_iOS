@@ -90,6 +90,12 @@ class Top50AlbumsViewController: UICollectionViewController {
         return cell
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let albumDetailVC = storyBoard.instantiateViewController(withIdentifier: "AlbumDetailViewController") as! AlbumDetailViewController
+        
+        self.navigationController?.pushViewController(albumDetailVC, animated: true)
+    }
   
 
     // MARK: UICollectionViewDelegate
