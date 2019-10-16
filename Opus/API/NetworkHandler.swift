@@ -11,6 +11,7 @@ import Foundation
 enum DataError: Error {
     case noDataFound
     case cannotProcessData
+    case badResponse
 }
 
 
@@ -28,46 +29,32 @@ class NetworkHandler {
         self.resourceURL = resourceURL
     }
     
-    /*
-    func request<T: Decodable>(type: T.Type,
-                               from url: URL,
-                               completionHandler: @escaping result<T>) -> Void {
+
+    
+    func request<T:Decodable>(type: T.Type, completionHandler: @escaping(result<T>)) {
         
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            if let error = error {
-                completionHandler(.failure(error))
-            }
+        
+        URLSession.shared.dataTask(with: resourceURL) { (data, response, _) in
             
-            if let jsondata = data {
-                do {
-                    let decodedJson: [T] = try JSONDecoder().decode([T].self, from: data)
-                    completionHandler(.success(decodedJson))
-                }
-            }
-        }
-
-    }
- */
-    
-    
-    func request<T:Decodable>(completionHandler: @escaping(Result<[T], DataError>) -> Void) {
-        
-        
-       URLSession.shared.dataTask(with: resourceURL) { data, response, error in
-
-        guard let jsonData = data else {
+            guard let jsonData = data else {
                 completionHandler(.failure(.noDataFound))
                 return
             }
+            
+            
+            guard response != nil else {
+                completionHandler(.failure(.badResponse))
+                return
+            }
+            
             do {
-                let decodedJson = try JSONDecoder().decode([T].self, from: jsonData)
-               
-                completionHandler(.success(decodedJson))
+                let decodedJson = try JSONDecoder().decode(T.self, from: jsonData)
+                completionHandler(.success([decodedJson]))
             } catch {
                 print(error)
                 completionHandler(.failure(.cannotProcessData))
             }
-
+            
         }.resume()
     }
     

@@ -12,7 +12,7 @@ import UIKit
 
 
 class Top50AlbumsViewController: UICollectionViewController {
-    var topAlbumList = [ArtistDetails]() {
+    var topAlbumList = [AlbumDetails]() {
         
         didSet {
             DispatchQueue.main.async {
@@ -25,16 +25,17 @@ class Top50AlbumsViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+
         let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
         
-        topAlbums.request {  result in
+        topAlbums.request(type: AlbumResponse.self) {  result in
             switch result {
             case .failure(let error):
                 print(error)
-            case .success(let albums ):
-                self?.topAlbumList = albums as ArtistDetails
-            }
+            case .success(let albums):
+              
+                print(albums)
+                //self?.topAlbumList = albums
         }
         /*
         topAlbums.request { [weak self] result in
@@ -55,6 +56,7 @@ class Top50AlbumsViewController: UICollectionViewController {
         //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
 
         // Do any additional setup after loading the view.
+    }
     }
 
     /*

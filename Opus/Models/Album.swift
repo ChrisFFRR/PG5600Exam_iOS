@@ -9,16 +9,16 @@
 import Foundation
 
 // JSON: - Root
-struct AlbumResponse: Decodable {
-    var topAlbums: [ArtistDetails]
+struct AlbumResponse: Codable {
+    var topAlbums: [AlbumDetails]
     
+
     enum CodingKeys: String, CodingKey {
         case topAlbums = "loved"
     }
 }
 
-// JSON: - Loved
-struct ArtistDetails: Decodable {
+struct AlbumDetails: Codable {
     
     let idAlbum, idArtist: String
     let strAlbum, strArtist, strArtistStripped, intYearReleased: String
@@ -26,5 +26,8 @@ struct ArtistDetails: Decodable {
     let strAlbumThumb: String
     
 }
+
+
+
 
 
