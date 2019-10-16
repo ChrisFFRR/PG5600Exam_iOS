@@ -26,10 +26,18 @@ class Top50AlbumsViewController: UICollectionViewController {
         super.viewDidLoad()
         
         
-        let topAlbums = HttpRequest()
+        let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
         
-        
-        topAlbums.getTopAlbums { [weak self] result in
+        topAlbums.request {  result in
+            switch result {
+            case .failure(let error):
+                print(error)
+            case .success(let albums ):
+                self?.topAlbumList = albums as ArtistDetails
+            }
+        }
+        /*
+        topAlbums.request { [weak self] result in
             
             switch result {
             case .failure(let error):
@@ -39,7 +47,7 @@ class Top50AlbumsViewController: UICollectionViewController {
             }
         }
         
-
+*/
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 

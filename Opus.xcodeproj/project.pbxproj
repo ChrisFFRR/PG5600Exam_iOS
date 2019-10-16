@@ -10,7 +10,7 @@
 		471B87DB2352052E002995DB /* Top50AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87DA2352052E002995DB /* Top50AlbumsViewController.swift */; };
 		471B87DD235206CC002995DB /* Top50AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87DC235206CC002995DB /* Top50AlbumCell.swift */; };
 		471B87DF2352226B002995DB /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87DE2352226B002995DB /* Album.swift */; };
-		471B87E12352249A002995DB /* HttpRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87E02352249A002995DB /* HttpRequest.swift */; };
+		471B87E12352249A002995DB /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87E02352249A002995DB /* NetworkHandler.swift */; };
 		47C39014234F376E0092D6A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C39013234F376E0092D6A9 /* AppDelegate.swift */; };
 		47C39016234F376E0092D6A9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C39015234F376E0092D6A9 /* SceneDelegate.swift */; };
 		47C3901B234F376E0092D6A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47C39019234F376E0092D6A9 /* Main.storyboard */; };
@@ -41,10 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		471B87DA2352052E002995DB /* Top50AlbumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top50AlbumsViewController.swift; sourceTree = SOURCE_ROOT; };
+		471B87DA2352052E002995DB /* Top50AlbumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Top50AlbumsViewController.swift; path = Opus/ViewControllers/Top50AlbumsViewController.swift; sourceTree = SOURCE_ROOT; };
 		471B87DC235206CC002995DB /* Top50AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top50AlbumCell.swift; sourceTree = "<group>"; };
 		471B87DE2352226B002995DB /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
-		471B87E02352249A002995DB /* HttpRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HttpRequest.swift; sourceTree = "<group>"; };
+		471B87E02352249A002995DB /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		47C39010234F376E0092D6A9 /* Opus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Opus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47C39013234F376E0092D6A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47C39015234F376E0092D6A9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,7 +108,7 @@
 		471B87E623537998002995DB /* API */ = {
 			isa = PBXGroup;
 			children = (
-				471B87E02352249A002995DB /* HttpRequest.swift */,
+				471B87E02352249A002995DB /* NetworkHandler.swift */,
 				47F1163923563B25008A1E47 /* ApiEndpoints.swift */,
 			);
 			path = API;
@@ -324,7 +324,7 @@
 				47C39014234F376E0092D6A9 /* AppDelegate.swift in Sources */,
 				47F1163C235657FE008A1E47 /* AlbumDetailViewController.swift in Sources */,
 				47C39016234F376E0092D6A9 /* SceneDelegate.swift in Sources */,
-				471B87E12352249A002995DB /* HttpRequest.swift in Sources */,
+				471B87E12352249A002995DB /* NetworkHandler.swift in Sources */,
 				471B87DF2352226B002995DB /* Album.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
