@@ -11,10 +11,20 @@ import UIKit
 class AlbumDetailViewController: UIViewController {
 
     @IBOutlet weak var albumImage: UIImageView!
+    @IBOutlet weak var albumTitle: UILabel!
+    @IBOutlet weak var albumArtist: UILabel!
+    
+    var albumImageData = UIImage()
+    var albumTitleData = ""
+    var albumArtistData = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        albumImage.image = albumImageData
+        albumTitle.text = albumTitleData
+        albumArtist.text = albumArtistData
+        
         // Do any additional setup after loading the view.
     }
     
@@ -30,3 +40,4 @@ class AlbumDetailViewController: UIViewController {
     */
 
 }
+

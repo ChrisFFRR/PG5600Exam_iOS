@@ -74,6 +74,8 @@ class Top50AlbumsViewController: UICollectionViewController {
         return topAlbumList.count
     }
 
+   
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopAlbum", for: indexPath) as? Top50AlbumCell else {
             fatalError("Unable to dequeue Top50AlbumCell")
@@ -81,13 +83,7 @@ class Top50AlbumsViewController: UICollectionViewController {
         
         let album = topAlbumList[indexPath.row]
         
-        let imageUrl = URL(string: album.strAlbumThumb)
-        if let data = try? Data(contentsOf: imageUrl!) {
-            let image: UIImage = UIImage(data: data)!
-            cell.albumImage.image = image
-        } else {
-            fatalError()
-        }
+        cell.albumImage.image = convertStrToUIImage(album)
         cell.albumArtist.text = album.strArtist
         cell.albumTitle.text = album.strAlbum
         
@@ -97,12 +93,19 @@ class Top50AlbumsViewController: UICollectionViewController {
         
         return cell
     }
+    //https://stackoverflow.com/questions/25444213/presenting-viewcontroller-with-navigationviewcontroller-swift
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let albumDetailVC = storyBoard.instantiateViewController(withIdentifier: "AlbumDetailViewController") as! AlbumDetailViewController
+        let albumDetailVC = storyboard?.instantiateViewController(withIdentifier: "AlbumDetailViewController") as? AlbumDetailViewController
         
-        self.navigationController?.pushViewController(albumDetailVC, animated: true)
+        let albumDetailView = topAlbumList[indexPath.row]
+        
+        albumDetailVC?.albumImageData = convertStrToUIImage(albumDetailView)
+        albumDetailVC?.albumTitleData = albumDetailView.strAlbum
+        albumDetailVC?.albumArtistData = albumDetailView.strArtist
+        let navController = UINavigationController(rootViewController: albumDetailVC!)
+        self.present(navController, animated: true)
+        
     }
   
 
@@ -137,4 +140,13 @@ class Top50AlbumsViewController: UICollectionViewController {
     }
     */
 
+    fileprivate func convertStrToUIImage(_ album: TopAlbum) -> UIImage {
+           let imageUrl = URL(string: album.strAlbumThumb)
+           if let data = try? Data(contentsOf: imageUrl!) {
+               let image: UIImage = UIImage(data: data)!
+               return image
+           } else {
+               fatalError()
+           }
+       }
 }
