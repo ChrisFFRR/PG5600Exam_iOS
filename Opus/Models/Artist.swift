@@ -9,8 +9,8 @@
 import Foundation
 
 // JSON: - Root
-struct ResponseRoot<T:Decodable> : Decodable {
-    var topAlbums: [T]
+struct TopAlbumRoot : Decodable {
+    var topAlbums: [TopAlbum]
 
     enum CodingKeys: String, CodingKey {
         case topAlbums = "loved"
@@ -24,6 +24,23 @@ struct TopAlbum: Codable {
     let strGenre: String
     let strAlbumThumb: String
     
+}
+
+struct AlbumRoot: Decodable {
+    let album: [Album]
+    
+    enum CodingKeys: String,  CodingKey {
+        case album = "track"
+    }
+}
+
+struct Album: Codable {
+    let strTrack, strDuration: String
+  
+    enum CodingKeys: String, CodingKey {
+        case strTrack
+        case strDuration = "intDuration"
+    }
 }
 
 

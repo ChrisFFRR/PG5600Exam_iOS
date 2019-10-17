@@ -104,6 +104,9 @@ class Top50AlbumsViewController: UICollectionViewController {
         albumDetailVC?.albumImageData = convertStrToUIImage(albumDetailView)
         albumDetailVC?.albumTitleData = albumDetailView.strAlbum
         albumDetailVC?.albumArtistData = albumDetailView.strArtist
+        albumDetailVC?.albumIdString = albumDetailView.idAlbum
+        
+        
         let navController = UINavigationController(rootViewController: albumDetailVC!)
         navController.setNavigationBarHidden( true, animated: true)
         self.present(navController, animated: true)

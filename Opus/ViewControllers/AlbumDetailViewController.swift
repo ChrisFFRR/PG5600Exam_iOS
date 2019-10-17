@@ -9,6 +9,15 @@
 import UIKit
 
 class AlbumDetailViewController: UIViewController {
+    
+    var albumTracks = [Album]() {
+        didSet {
+            DispatchQueue.main.async {
+                print(self.albumTracks.count)
+            }
+        }
+        
+    }
 
     @IBOutlet weak var albumImage: UIImageView!
     @IBOutlet weak var albumTitle: UILabel!
@@ -17,6 +26,8 @@ class AlbumDetailViewController: UIViewController {
     var albumImageData = UIImage()
     var albumTitleData = ""
     var albumArtistData = ""
+    var albumIdString = ""
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +36,17 @@ class AlbumDetailViewController: UIViewController {
         albumTitle.text = albumTitleData
         print(albumTitleData)
         albumArtist.text = albumArtistData
+        
+      
+            let albumIntID = Int(self.albumIdString)
+            
+            let albumTracks = NetworkHandler( from: "https://theaudiodb.com/api/v1/json/1/track.php?m=\(albumIntID!)")
+            
+            albumTracks.getAlbumTracks { [weak self] result in
+                self?.albumTracks = result!
+            }
+          //get albumTracks
+        
         
         // Do any additional setup after loading the view.
     }
