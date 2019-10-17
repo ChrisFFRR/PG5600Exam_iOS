@@ -96,7 +96,8 @@ class Top50AlbumsViewController: UICollectionViewController {
     //https://stackoverflow.com/questions/25444213/presenting-viewcontroller-with-navigationviewcontroller-swift
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let albumDetailVC = storyboard?.instantiateViewController(withIdentifier: "AlbumDetailViewController") as? AlbumDetailViewController
+        let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+        let albumDetailVC = storyboard.instantiateViewController(withIdentifier: "AlbumDetailViewController") as? AlbumDetailViewController
         
         let albumDetailView = topAlbumList[indexPath.row]
         
@@ -104,6 +105,7 @@ class Top50AlbumsViewController: UICollectionViewController {
         albumDetailVC?.albumTitleData = albumDetailView.strAlbum
         albumDetailVC?.albumArtistData = albumDetailView.strArtist
         let navController = UINavigationController(rootViewController: albumDetailVC!)
+        navController.setNavigationBarHidden( true, animated: true)
         self.present(navController, animated: true)
         
     }

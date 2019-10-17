@@ -23,6 +23,7 @@ class AlbumDetailViewController: UIViewController {
 
         albumImage.image = albumImageData
         albumTitle.text = albumTitleData
+        print(albumTitleData)
         albumArtist.text = albumArtistData
         
         // Do any additional setup after loading the view.
