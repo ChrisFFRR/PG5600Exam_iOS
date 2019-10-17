@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		471B87DB2352052E002995DB /* Top50AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87DA2352052E002995DB /* Top50AlbumsViewController.swift */; };
 		471B87DD235206CC002995DB /* Top50AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87DC235206CC002995DB /* Top50AlbumCell.swift */; };
-		471B87DF2352226B002995DB /* Album.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87DE2352226B002995DB /* Album.swift */; };
+		471B87DF2352226B002995DB /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87DE2352226B002995DB /* Artist.swift */; };
 		471B87E12352249A002995DB /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87E02352249A002995DB /* NetworkHandler.swift */; };
 		47C39014234F376E0092D6A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C39013234F376E0092D6A9 /* AppDelegate.swift */; };
 		47C39016234F376E0092D6A9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C39015234F376E0092D6A9 /* SceneDelegate.swift */; };
@@ -43,7 +43,7 @@
 /* Begin PBXFileReference section */
 		471B87DA2352052E002995DB /* Top50AlbumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Top50AlbumsViewController.swift; path = Opus/ViewControllers/Top50AlbumsViewController.swift; sourceTree = SOURCE_ROOT; };
 		471B87DC235206CC002995DB /* Top50AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top50AlbumCell.swift; sourceTree = "<group>"; };
-		471B87DE2352226B002995DB /* Album.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Album.swift; sourceTree = "<group>"; };
+		471B87DE2352226B002995DB /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		471B87E02352249A002995DB /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		47C39010234F376E0092D6A9 /* Opus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Opus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47C39013234F376E0092D6A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -181,7 +181,7 @@
 		47C3904D2351ECF20092D6A9 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				471B87DE2352226B002995DB /* Album.swift */,
+				471B87DE2352226B002995DB /* Artist.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -325,7 +325,7 @@
 				47F1163C235657FE008A1E47 /* AlbumDetailViewController.swift in Sources */,
 				47C39016234F376E0092D6A9 /* SceneDelegate.swift in Sources */,
 				471B87E12352249A002995DB /* NetworkHandler.swift in Sources */,
-				471B87DF2352226B002995DB /* Album.swift in Sources */,
+				471B87DF2352226B002995DB /* Artist.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

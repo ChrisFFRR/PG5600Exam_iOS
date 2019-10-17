@@ -8,17 +8,13 @@
 
 import Foundation
 
-enum DataError: Error {
-    case noDataFound
-    case cannotProcessData
-    case badResponse
+enum NetworkError: Error {
+    case decodingError(message: String)
 }
-
 
 
 class NetworkHandler {
     
-    typealias result<T> = (Result<[T], DataError>) -> Void
     
     let resourceURL:URL
     
@@ -28,34 +24,33 @@ class NetworkHandler {
         
         self.resourceURL = resourceURL
     }
+    //https://matteomanferdini.com/network-requests-rest-apis-ios-swift/
     
-
-    
-    func request<T:Decodable>(type: T.Type, completionHandler: @escaping(result<T>)) {
-        
-        
-        URLSession.shared.dataTask(with: resourceURL) { (data, response, _) in
+    func load(url: URL, withCompletion: @escaping (Data?) -> Void) {
+        URLSession.shared.dataTask(with: url, completionHandler: { (data, _, error) -> Void in
             
-            guard let jsonData = data else {
-                completionHandler(.failure(.noDataFound))
+            guard data != nil && error == nil else {
+                print(error?.localizedDescription as Any)
                 return
             }
             
-            
-            guard response != nil else {
-                completionHandler(.failure(.badResponse))
+            withCompletion(data)
+        }).resume()
+    }
+    
+    func getTopAlbums(completion: @escaping ([TopAlbum]?) -> Void) {
+        load(url: resourceURL) { data in
+            guard let jsonData = data else {
+                completion(nil)
                 return
             }
             
             do {
-                let decodedJson = try JSONDecoder().decode(T.self, from: jsonData)
-                completionHandler(.success([decodedJson]))
-            } catch {
-                print(error)
-                completionHandler(.failure(.cannotProcessData))
+                let topAlbumResp = try JSONDecoder().decode(ResponseRoot<TopAlbum>.self, from: jsonData)
+                completion(topAlbumResp.topAlbums)
+            } catch let err as NSError {
+                fatalError(err.localizedDescription)
             }
-            
-        }.resume()
+        }
     }
-    
 }

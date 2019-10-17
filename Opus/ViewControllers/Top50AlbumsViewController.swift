@@ -12,7 +12,7 @@ import UIKit
 
 
 class Top50AlbumsViewController: UICollectionViewController {
-    var topAlbumList = [AlbumDetails]() {
+    var topAlbumList = [TopAlbum]() {
         
         didSet {
             DispatchQueue.main.async {
@@ -28,6 +28,7 @@ class Top50AlbumsViewController: UICollectionViewController {
 
         let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
         
+        /*
         topAlbums.request(type: AlbumResponse.self) {  result in
             switch result {
             case .failure(let error):
@@ -37,18 +38,15 @@ class Top50AlbumsViewController: UICollectionViewController {
                 print(albums)
                 //self?.topAlbumList = albums
         }
-        /*
-        topAlbums.request { [weak self] result in
+ */
+        
+        topAlbums.getTopAlbums { [weak self] result in
             
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let albums):
-                self?.topAlbumList = albums
-            }
+            self?.topAlbumList = result!
+        
         }
         
-*/
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -57,7 +55,7 @@ class Top50AlbumsViewController: UICollectionViewController {
 
         // Do any additional setup after loading the view.
     }
-    }
+    
 
     /*
     // MARK: - Navigation

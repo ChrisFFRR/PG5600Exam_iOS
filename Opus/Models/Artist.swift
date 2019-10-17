@@ -1,5 +1,5 @@
 //
-//  Album.swift
+//  Artist.swift
 //  Opus
 //
 //  Created by Christopher Marchand on 12/10/2019.
@@ -7,18 +7,17 @@
 //
 
 import Foundation
-
+
 // JSON: - Root
-struct AlbumResponse: Codable {
-    var topAlbums: [AlbumDetails]
-    
-
+struct ResponseRoot<T:Decodable> : Decodable {
+    var topAlbums: [T]
+
     enum CodingKeys: String, CodingKey {
         case topAlbums = "loved"
     }
 }
 
-struct AlbumDetails: Codable {
+struct TopAlbum: Codable {
     
     let idAlbum, idArtist: String
     let strAlbum, strArtist, strArtistStripped, intYearReleased: String
