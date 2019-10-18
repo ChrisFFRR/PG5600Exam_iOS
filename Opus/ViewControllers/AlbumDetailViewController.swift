@@ -11,9 +11,12 @@ import UIKit
 class AlbumDetailViewController: UIViewController {
     
     var albumTracks = [Album]() {
+    
         didSet {
             DispatchQueue.main.async {
-                print(self.albumTracks.count)
+                
+                for track in self.albumTracks { print("\(track.strTrack)")
+                }
             }
         }
         
