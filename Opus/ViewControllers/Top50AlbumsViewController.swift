@@ -9,15 +9,18 @@
 import UIKit
 
 
-
+protocol AlbumDelegate {
+    func didSendAlbums(_ albums: [TopAlbum])
+}
 
 class Top50AlbumsViewController: UICollectionViewController {
     
+    var albumDelegate: AlbumDelegate?
     var topAlbumList = [TopAlbum]() {
-        
         didSet {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
+               self.albumDelegate?.didSendAlbums(self.topAlbumList)
             }
         }
     }
@@ -36,13 +39,11 @@ class Top50AlbumsViewController: UICollectionViewController {
     
         
         topAlbums.getTopAlbums { [weak self] result in
-            
             guard let result = result else {
                 print("Could not fetch Albums")
                 return
             }
             self?.topAlbumList = result
-        
         }
     
     }
@@ -148,8 +149,6 @@ class Top50AlbumsViewController: UICollectionViewController {
     }
     */
     
-    
-    
 
     fileprivate func convertStrToUIImage(_ album: TopAlbum) -> UIImage {
            let imageUrl = URL(string: album.strAlbumThumb)
@@ -162,5 +161,3 @@ class Top50AlbumsViewController: UICollectionViewController {
        }
 }
 
-
- 
