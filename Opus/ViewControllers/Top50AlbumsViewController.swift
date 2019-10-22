@@ -12,6 +12,9 @@ import UIKit
 
 
 class Top50AlbumsViewController: UICollectionViewController {
+    
+    
+    
     var topAlbumList = [TopAlbum]() {
         
         didSet {
@@ -21,39 +24,45 @@ class Top50AlbumsViewController: UICollectionViewController {
             }
         }
     }
+    
+    var collectionViewFlowLayout:  UICollectionViewFlowLayout!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
         
-        /*
-        topAlbums.request(type: AlbumResponse.self) {  result in
-            switch result {
-            case .failure(let error):
-                print(error)
-            case .success(let albums):
-              
-                print(albums)
-                //self?.topAlbumList = albums
-        }
- */
+        //register topalbum cell
+        let topAlbumNib = UINib(nibName: "TopAlbumCell", bundle: nil)
+        collectionView.register(topAlbumNib, forCellWithReuseIdentifier: "TopAlbumCell")
+        
+        let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
+    
         
         topAlbums.getTopAlbums { [weak self] result in
             
             self?.topAlbumList = result!
         
         }
-        
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        //self.collectionView!.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        // Do any additional setup after loading the view.
+    
+    }
+    override func viewWillLayoutSubviews() {
+        if collectionViewFlowLayout == nil {
+            let numberOfItemsRow:  CGFloat = 2
+            let lineSpacing: CGFloat = 15
+            let interItemSpacing: CGFloat = 15
+            let width = (collectionView.frame.width - (numberOfItemsRow - 1) * interItemSpacing) / numberOfItemsRow
+            
+            collectionViewFlowLayout = UICollectionViewFlowLayout()
+            collectionViewFlowLayout.itemSize = CGSize(width: CGFloat(width), height: CGFloat(230))
+            collectionViewFlowLayout.scrollDirection = .vertical
+            collectionViewFlowLayout.minimumLineSpacing = lineSpacing
+            collectionViewFlowLayout.minimumInteritemSpacing = interItemSpacing
+            collectionViewFlowLayout.sectionInset.top = CGFloat(15)
+            
+            
+            collectionView.setCollectionViewLayout(collectionViewFlowLayout, animated: true)
+        }
     }
     
 
@@ -73,12 +82,14 @@ class Top50AlbumsViewController: UICollectionViewController {
         // #warning Incomplete implementation, return the number of items
         return topAlbumList.count
     }
+    
+   
 
    
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopAlbum", for: indexPath) as? Top50AlbumCell else {
-            fatalError("Unable to dequeue Top50AlbumCell")
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopAlbumCell", for: indexPath) as? TopAlbumCell else {
+            fatalError("Unable to dequeue TopAlbumCell")
         }
         
         let album = topAlbumList[indexPath.row]
@@ -91,9 +102,11 @@ class Top50AlbumsViewController: UICollectionViewController {
         cell.contentView.layer.masksToBounds = true
         cell.layer.cornerRadius = 10
         
+      
+        
         return cell
     }
-    //https://stackoverflow.com/questions/25444213/presenting-viewcontroller-with-navigationviewcontroller-swift
+    
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -106,13 +119,14 @@ class Top50AlbumsViewController: UICollectionViewController {
         albumDetailVC?.albumArtistData = albumDetailView.strArtist
         albumDetailVC?.albumIdString = albumDetailView.idAlbum
         
-        
+        //https://stackoverflow.com/questions/25444213/presenting-viewcontroller-with-navigationviewcontroller-swift
         let navController = UINavigationController(rootViewController: albumDetailVC!)
         navController.setNavigationBarHidden( true, animated: true)
         self.present(navController, animated: true)
         
     }
-  
+    
+   
 
     // MARK: UICollectionViewDelegate
 
@@ -144,6 +158,9 @@ class Top50AlbumsViewController: UICollectionViewController {
     
     }
     */
+    
+    
+    
 
     fileprivate func convertStrToUIImage(_ album: TopAlbum) -> UIImage {
            let imageUrl = URL(string: album.strAlbumThumb)
@@ -155,3 +172,6 @@ class Top50AlbumsViewController: UICollectionViewController {
            }
        }
 }
+
+
+ 

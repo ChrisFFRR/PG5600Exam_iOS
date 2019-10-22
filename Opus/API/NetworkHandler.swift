@@ -38,6 +38,7 @@ class NetworkHandler {
         }).resume()
     }
     
+    
     func getTopAlbums(completion: @escaping ([TopAlbum]?) -> Void) {
         load(url: resourceURL) { data in
             guard let jsonData = data else {
