@@ -8,11 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		471B87DB2352052E002995DB /* Top50AlbumsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87DA2352052E002995DB /* Top50AlbumsViewController.swift */; };
-		471B87DD235206CC002995DB /* Top50AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87DC235206CC002995DB /* Top50AlbumCell.swift */; };
 		471B87DF2352226B002995DB /* Artist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87DE2352226B002995DB /* Artist.swift */; };
 		471B87E12352249A002995DB /* NetworkHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 471B87E02352249A002995DB /* NetworkHandler.swift */; };
 		4744728E235B218D005C8055 /* TopAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4744728C235B218D005C8055 /* TopAlbumCell.swift */; };
 		4744728F235B218D005C8055 /* TopAlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4744728D235B218D005C8055 /* TopAlbumCell.xib */; };
+		47A04EB2235F32800089ED34 /* Top50AlbumsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A04EB1235F32800089ED34 /* Top50AlbumsListViewController.swift */; };
+		47A04EB4235F33970089ED34 /* Top50AlbumsMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A04EB3235F33970089ED34 /* Top50AlbumsMasterViewController.swift */; };
 		47C39014234F376E0092D6A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C39013234F376E0092D6A9 /* AppDelegate.swift */; };
 		47C39016234F376E0092D6A9 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C39015234F376E0092D6A9 /* SceneDelegate.swift */; };
 		47C3901B234F376E0092D6A9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47C39019234F376E0092D6A9 /* Main.storyboard */; };
@@ -44,11 +45,12 @@
 
 /* Begin PBXFileReference section */
 		471B87DA2352052E002995DB /* Top50AlbumsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Top50AlbumsViewController.swift; path = Opus/ViewControllers/Top50AlbumsViewController.swift; sourceTree = SOURCE_ROOT; };
-		471B87DC235206CC002995DB /* Top50AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top50AlbumCell.swift; sourceTree = "<group>"; };
 		471B87DE2352226B002995DB /* Artist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Artist.swift; sourceTree = "<group>"; };
 		471B87E02352249A002995DB /* NetworkHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandler.swift; sourceTree = "<group>"; };
 		4744728C235B218D005C8055 /* TopAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAlbumCell.swift; sourceTree = "<group>"; };
 		4744728D235B218D005C8055 /* TopAlbumCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopAlbumCell.xib; sourceTree = "<group>"; };
+		47A04EB1235F32800089ED34 /* Top50AlbumsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top50AlbumsListViewController.swift; sourceTree = "<group>"; };
+		47A04EB3235F33970089ED34 /* Top50AlbumsMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top50AlbumsMasterViewController.swift; sourceTree = "<group>"; };
 		47C39010234F376E0092D6A9 /* Opus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Opus.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		47C39013234F376E0092D6A9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		47C39015234F376E0092D6A9 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -186,8 +188,9 @@
 			isa = PBXGroup;
 			children = (
 				471B87DA2352052E002995DB /* Top50AlbumsViewController.swift */,
-				471B87DC235206CC002995DB /* Top50AlbumCell.swift */,
 				47F1163B235657FE008A1E47 /* AlbumDetailViewController.swift */,
+				47A04EB1235F32800089ED34 /* Top50AlbumsListViewController.swift */,
+				47A04EB3235F33970089ED34 /* Top50AlbumsMasterViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -332,14 +335,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47A04EB2235F32800089ED34 /* Top50AlbumsListViewController.swift in Sources */,
 				47C3901E234F376E0092D6A9 /* Opus.xcdatamodeld in Sources */,
-				471B87DD235206CC002995DB /* Top50AlbumCell.swift in Sources */,
 				471B87DB2352052E002995DB /* Top50AlbumsViewController.swift in Sources */,
 				47F1163A23563B25008A1E47 /* ApiEndpoints.swift in Sources */,
 				47C39014234F376E0092D6A9 /* AppDelegate.swift in Sources */,
 				47F1163C235657FE008A1E47 /* AlbumDetailViewController.swift in Sources */,
 				47C39016234F376E0092D6A9 /* SceneDelegate.swift in Sources */,
 				471B87E12352249A002995DB /* NetworkHandler.swift in Sources */,
+				47A04EB4235F33970089ED34 /* Top50AlbumsMasterViewController.swift in Sources */,
 				4744728E235B218D005C8055 /* TopAlbumCell.swift in Sources */,
 				471B87DF2352226B002995DB /* Artist.swift in Sources */,
 			);

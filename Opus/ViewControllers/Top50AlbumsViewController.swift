@@ -13,21 +13,17 @@ import UIKit
 
 class Top50AlbumsViewController: UICollectionViewController {
     
-    
-    
     var topAlbumList = [TopAlbum]() {
         
         didSet {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
-                self.navigationItem.title = "Top \(self.topAlbumList.count) albums"
             }
         }
     }
-    
     var collectionViewFlowLayout:  UICollectionViewFlowLayout!
-
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -41,7 +37,11 @@ class Top50AlbumsViewController: UICollectionViewController {
         
         topAlbums.getTopAlbums { [weak self] result in
             
-            self?.topAlbumList = result!
+            guard let result = result else {
+                print("Could not fetch Albums")
+                return
+            }
+            self?.topAlbumList = result
         
         }
     
@@ -66,15 +66,6 @@ class Top50AlbumsViewController: UICollectionViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     // MARK: UICollectionViewDataSource
 
@@ -83,9 +74,7 @@ class Top50AlbumsViewController: UICollectionViewController {
         return topAlbumList.count
     }
     
-   
-
-   
+ 
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopAlbumCell", for: indexPath) as? TopAlbumCell else {
