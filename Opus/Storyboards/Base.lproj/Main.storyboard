@@ -102,28 +102,40 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fr-8t-9Ya">
                                 <rect key="frame" x="5" y="436" width="404" height="21"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6gz-2L-mc3">
                                 <rect key="frame" x="5" y="458" width="404" height="18"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                <nil key="textColor"/>
+                                <color key="textColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dmd-Va-idU">
+                                <rect key="frame" x="20" y="481" width="374" height="317"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="WBl-fb-H7y" id="Y9O-Rr-KPG"/>
+                                    <outlet property="delegate" destination="WBl-fb-H7y" id="ese-KP-pbH"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="0wp-f0-3ZP" firstAttribute="top" secondItem="HJc-Kc-8Sr" secondAttribute="top" constant="-25" id="3WU-IL-Wff"/>
+                            <constraint firstItem="527-u9-zez" firstAttribute="bottom" secondItem="dmd-Va-idU" secondAttribute="bottom" constant="10" id="8On-ed-0kl"/>
                             <constraint firstItem="0wp-f0-3ZP" firstAttribute="trailing" secondItem="527-u9-zez" secondAttribute="trailing" id="92t-Yr-22Y"/>
                             <constraint firstItem="6gz-2L-mc3" firstAttribute="leading" secondItem="527-u9-zez" secondAttribute="leading" constant="5" id="AwS-wL-8hM"/>
+                            <constraint firstItem="dmd-Va-idU" firstAttribute="top" secondItem="6gz-2L-mc3" secondAttribute="bottom" constant="5" id="Iwt-RA-a86"/>
                             <constraint firstItem="0wp-f0-3ZP" firstAttribute="centerX" secondItem="527-u9-zez" secondAttribute="centerX" id="UYw-1q-JgC"/>
                             <constraint firstItem="527-u9-zez" firstAttribute="bottom" secondItem="0wp-f0-3ZP" secondAttribute="bottom" constant="367" id="biR-Sa-awP"/>
                             <constraint firstItem="527-u9-zez" firstAttribute="trailing" secondItem="6gz-2L-mc3" secondAttribute="trailing" constant="5" id="cYg-wq-x84"/>
+                            <constraint firstItem="527-u9-zez" firstAttribute="trailing" secondItem="dmd-Va-idU" secondAttribute="trailing" constant="20" id="d4D-6Q-6Az"/>
                             <constraint firstItem="9fr-8t-9Ya" firstAttribute="leading" secondItem="527-u9-zez" secondAttribute="leading" constant="5" id="k4a-qZ-mOk"/>
                             <constraint firstItem="0wp-f0-3ZP" firstAttribute="leading" secondItem="527-u9-zez" secondAttribute="leading" id="miE-1B-hfe"/>
                             <constraint firstItem="527-u9-zez" firstAttribute="trailing" secondItem="9fr-8t-9Ya" secondAttribute="trailing" constant="5" id="oPi-Pg-Qrp"/>
                             <constraint firstItem="6gz-2L-mc3" firstAttribute="top" secondItem="9fr-8t-9Ya" secondAttribute="bottom" constant="1" id="og8-sd-wk4"/>
+                            <constraint firstItem="dmd-Va-idU" firstAttribute="leading" secondItem="527-u9-zez" secondAttribute="leading" constant="20" id="qgo-lI-6dc"/>
                             <constraint firstItem="9fr-8t-9Ya" firstAttribute="top" secondItem="0wp-f0-3ZP" secondAttribute="bottom" constant="-5" id="yV7-ik-Jk2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="527-u9-zez"/>
@@ -133,11 +145,12 @@
                         <outlet property="albumArtist" destination="6gz-2L-mc3" id="U8m-nN-CVm"/>
                         <outlet property="albumImage" destination="0wp-f0-3ZP" id="Kuh-vp-kFd"/>
                         <outlet property="albumTitle" destination="9fr-8t-9Ya" id="6eH-mS-yHe"/>
+                        <outlet property="trackContainer" destination="dmd-Va-idU" id="Uws-8T-Kn2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5m9-aj-NND" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3500" y="888"/>
+            <point key="canvasLocation" x="3500.0000000000005" y="887.94642857142856"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="kQo-9b-fie">
@@ -163,6 +176,6 @@
         <image name="square.grid.2x2" catalog="system" width="64" height="56"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="tge-Yq-uFj"/>
+        <segue reference="9lu-A5-G8W"/>
     </inferredMetricsTieBreakers>
 </document>
