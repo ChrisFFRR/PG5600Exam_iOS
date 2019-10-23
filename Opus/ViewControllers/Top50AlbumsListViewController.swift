@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Top50AlbumsListViewController: UIViewController {
+class Top50AlbumsListViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -31,6 +31,7 @@ class Top50AlbumsMasterViewController: UIViewController {
         return vc
     }()
     
+    
     private lazy var topAlbumsListVc: Top50AlbumsListViewController = {
            let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
            let vc = storyboard.instantiateViewController(withIdentifier: "Top50AlbumsListViewController") as! Top50AlbumsListViewController
@@ -40,7 +41,6 @@ class Top50AlbumsMasterViewController: UIViewController {
            return vc
        }()
     
-   
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,9 +86,7 @@ extension Top50AlbumsMasterViewController: AlbumDelegate {
     func didSendAlbums(_ albums: [TopAlbum]) {
         self.totalAlbums = albums.map({$0})
         self.navigationItem.title = "Top \(self.totalAlbums.count) Albums"
-        for album in self.totalAlbums {
-            print(album)
-        }
+        
     }
 }
 
