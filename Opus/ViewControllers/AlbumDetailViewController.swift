@@ -41,6 +41,8 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
         trackContainer.register(trackInfoNib, forCellReuseIdentifier: "TrackListViewCell")
         trackContainer.delegate = self
         trackContainer.dataSource = self
+        
+        trackContainer.layer.cornerRadius = 10
 
         albumImage.image = albumImageData
         albumTitle.text = albumTitleData
@@ -70,6 +72,8 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
             fatalError("Could not dequeue TrackListViewCell")
         }
         
+        
+        
         cell.trackTitle.text = albumTracks[indexPath.row].strTrack
        
         cell.trackDuration.text = convertFromStringToCorrectTime(from: albumTracks[indexPath.row].strDuration)
@@ -81,7 +85,7 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
         let timeInt = NSInteger(stringDur)
         
         let minutes = timeInt! / 60000
-        let seconds = (timeInt! % 3600) % 60
+        let seconds = (timeInt! / 1000) % 60
         
         let converted = NSString(format: "%d:%.2d",minutes, seconds)
         
