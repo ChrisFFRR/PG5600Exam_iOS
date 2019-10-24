@@ -1,21 +1,23 @@
 //
-//  TopAlbumListViewCellTableViewCell.swift
+//  TopAlbumListViewCell.swift
 //  Opus
 //
-//  Created by Christopher Marchand on 23/10/2019.
+//  Created by Christopher Marchand on 24/10/2019.
 //  Copyright © 2019 Christopher Marchand. All rights reserved.
 //
 
 import UIKit
 
-class TrackListViewCell: UITableViewCell {
+class TopAlbumListViewCell: UITableViewCell {
 
-    @IBOutlet weak var trackTitle: UILabel!
-    @IBOutlet weak var trackDuration: UILabel!
-    
+    @IBOutlet weak var albumImage: UIImageView!
+    @IBOutlet weak var albumTitle: UILabel!
+    @IBOutlet weak var artistName: UILabel!
    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -23,5 +25,4 @@ class TrackListViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
 }

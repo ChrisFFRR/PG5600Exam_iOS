@@ -62,7 +62,6 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(albumTracks.count)
         return albumTracks.count
         
     }
@@ -75,6 +74,7 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
         
         
         cell.trackTitle.text = albumTracks[indexPath.row].strTrack
+       
        
         cell.trackDuration.text = convertFromStringToCorrectTime(from: albumTracks[indexPath.row].strDuration)
         

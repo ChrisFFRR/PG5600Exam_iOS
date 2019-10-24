@@ -13,18 +13,21 @@ import UIKit
 class Top50AlbumsMasterViewController: UIViewController {
    
     
-    
-    let getAlbumsFromDelegate = Top50AlbumsViewController()
-    
-    var totalAlbums: [TopAlbum] = []
+    var totalAlbums = [TopAlbum]() {
+        didSet {
+             print("Total albums in mvc = \(totalAlbums.count)")
+            DispatchQueue.main.async {
+                 self.navigationItem.title = "Top \(self.totalAlbums.count) Albums"
+            }
+           
+        }
+    }
     
     @IBOutlet var segmentedController: UISegmentedControl!
     
     private lazy var topAlbumsGridVc: Top50AlbumsViewController = {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc = storyboard.instantiateViewController(withIdentifier: "Top50AlbumsViewController") as! Top50AlbumsViewController
-        
-        vc.albumDelegate = self
         
         self.addViewControllerAsChild(childVc: vc)
         
@@ -35,16 +38,31 @@ class Top50AlbumsMasterViewController: UIViewController {
     private lazy var topAlbumsListVc: Top50AlbumsListViewController = {
            let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
            let vc = storyboard.instantiateViewController(withIdentifier: "Top50AlbumsListViewController") as! Top50AlbumsListViewController
-       
-           self.addViewControllerAsChild(childVc: vc)
         
+           vc.totalAlbums = self.totalAlbums.map({$0})
+           self.addViewControllerAsChild(childVc: vc)
+           
            return vc
        }()
+    
+    override func viewWillAppear(_ animated: Bool) {
+         let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
+
+               DispatchQueue.init(label: "background").async {
+               topAlbums.getTopAlbums { [weak self] result in
+                          guard let result = result else {
+                              print("Could not fetch Albums")
+                              return
+                          }
+                          self?.totalAlbums = result
+                      }
+               }
+    }
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+  
          navigationItem.title = "Loading"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Scroll to top", style: .done, target: self, action: #selector(scrollToTop(_:)))
         
@@ -59,8 +77,6 @@ class Top50AlbumsMasterViewController: UIViewController {
 
     //https://www.youtube.com/watch?v=kq-lHR5ZOW0
     @objc func selectionDidChange(sender: UISegmentedControl) {
-       
-
         topAlbumsGridVc.view.isHidden = !(segmentedController.selectedSegmentIndex == 0)
         topAlbumsListVc.view.isHidden = (segmentedController.selectedSegmentIndex == 0)
     }
@@ -85,6 +101,7 @@ class Top50AlbumsMasterViewController: UIViewController {
 extension Top50AlbumsMasterViewController: AlbumDelegate {
     func didSendAlbums(_ albums: [TopAlbum]) {
         self.totalAlbums = albums.map({$0})
+        print("Delegate function MVC")
         self.navigationItem.title = "Top \(self.totalAlbums.count) Albums"
         
     }

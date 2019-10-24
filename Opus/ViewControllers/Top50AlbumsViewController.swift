@@ -15,12 +15,11 @@ protocol AlbumDelegate {
 
 class Top50AlbumsViewController: UICollectionViewController {
     
-    var albumDelegate: AlbumDelegate?
     var topAlbumList = [TopAlbum]() {
         didSet {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
-               self.albumDelegate?.didSendAlbums(self.topAlbumList)
+                print("Total albums in GridVC = \(self.topAlbumList.count)")
             }
         }
     }
@@ -34,10 +33,10 @@ class Top50AlbumsViewController: UICollectionViewController {
         //register topalbum cell
         let topAlbumNib = UINib(nibName: "TopAlbumCell", bundle: nil)
         collectionView.register(topAlbumNib, forCellWithReuseIdentifier: "TopAlbumCell")
-        
+
         let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
-    
-        
+
+
         topAlbums.getTopAlbums { [weak self] result in
             guard let result = result else {
                 print("Could not fetch Albums")
@@ -45,7 +44,6 @@ class Top50AlbumsViewController: UICollectionViewController {
             }
             self?.topAlbumList = result
         }
-    
     }
     override func viewWillLayoutSubviews() {
         if collectionViewFlowLayout == nil {
@@ -71,11 +69,8 @@ class Top50AlbumsViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of items
         return topAlbumList.count
     }
-    
- 
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopAlbumCell", for: indexPath) as? TopAlbumCell else {
@@ -84,15 +79,13 @@ class Top50AlbumsViewController: UICollectionViewController {
         
         let album = topAlbumList[indexPath.row]
         
-        cell.albumImage.image = convertStrToUIImage(album)
+        cell.albumImage.image = Utils.convertStrToUIImage(album.strAlbumThumb)
         cell.albumArtist.text = album.strArtist
         cell.albumTitle.text = album.strAlbum
         
         // Add rounded corners
         cell.contentView.layer.masksToBounds = true
         cell.layer.cornerRadius = 10
-        
-      
         
         return cell
     }
@@ -102,17 +95,9 @@ class Top50AlbumsViewController: UICollectionViewController {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
         let albumDetailVC = storyboard.instantiateViewController(withIdentifier: "AlbumDetailViewController") as? AlbumDetailViewController
         
-        let albumDetailView = topAlbumList[indexPath.row]
+        let albumDetailData = topAlbumList[indexPath.row]
         
-        albumDetailVC?.albumImageData = convertStrToUIImage(albumDetailView)
-        albumDetailVC?.albumTitleData = albumDetailView.strAlbum
-        albumDetailVC?.albumArtistData = albumDetailView.strArtist
-        albumDetailVC?.albumIdString = albumDetailView.idAlbum
-        
-        //https://stackoverflow.com/questions/25444213/presenting-viewcontroller-with-navigationviewcontroller-swift
-        let navController = UINavigationController(rootViewController: albumDetailVC!)
-        navController.setNavigationBarHidden( true, animated: true)
-        self.present(navController, animated: true)
+        Utils.setUpAndShowModal(album: albumDetailData, albumDetailVC, senderVC: self)
         
     }
     
@@ -149,15 +134,32 @@ class Top50AlbumsViewController: UICollectionViewController {
     }
     */
     
+}
 
-    fileprivate func convertStrToUIImage(_ album: TopAlbum) -> UIImage {
-           let imageUrl = URL(string: album.strAlbumThumb)
-           if let data = try? Data(contentsOf: imageUrl!) {
-               let image: UIImage = UIImage(data: data)!
-               return image
-           } else {
-               fatalError()
-           }
-       }
+class Utils {
+    
+   static func convertStrToUIImage(_ albumUrl: String) -> UIImage {
+             let imageUrl = URL(string: albumUrl)
+             if let data = try? Data(contentsOf: imageUrl!) {
+                 let image: UIImage = UIImage(data: data)!
+                 return image
+             } else {
+                 fatalError()
+             }
+         }
+    
+    static func setUpAndShowModal( album: TopAlbum, _ albumDetailVC: AlbumDetailViewController?, senderVC: UIViewController) {
+         
+          
+          albumDetailVC?.albumImageData = Utils.convertStrToUIImage(album.strAlbumThumb)
+          albumDetailVC?.albumTitleData = album.strAlbum
+          albumDetailVC?.albumArtistData = album.strArtist
+          albumDetailVC?.albumIdString = album.idAlbum
+          
+          
+          let navController = UINavigationController(rootViewController: albumDetailVC!)
+          navController.setNavigationBarHidden( true, animated: true)
+          senderVC.present(navController, animated: true)
+      }
 }
 
