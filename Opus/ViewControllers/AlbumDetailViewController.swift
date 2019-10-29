@@ -60,9 +60,6 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
             albumTracks.getAlbumTracks { [weak self] result in
                 self?.albumTracks = result!
             }
-         
-        
-        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

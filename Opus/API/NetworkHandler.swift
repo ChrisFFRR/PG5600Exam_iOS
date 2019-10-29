@@ -8,13 +8,14 @@
 
 import Foundation
 
+
+
 enum NetworkError: Error {
     case decodingError(message: String)
 }
 
 
 class NetworkHandler {
-    
     
     let resourceURL:URL
     
@@ -33,7 +34,7 @@ class NetworkHandler {
                 print(error?.localizedDescription as Any)
                 return
             }
-            
+           
             withCompletion(data)
         }).resume()
     }
@@ -48,7 +49,6 @@ class NetworkHandler {
             
             do {
                 let topAlbumResp = try JSONDecoder().decode(TopAlbumRoot.self, from: jsonData)
-                
                 completion(topAlbumResp.topAlbums)
             } catch let err as NSError {
                 fatalError(err.localizedDescription)

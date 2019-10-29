@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x1n-42-yLm">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15504" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="x1n-42-yLm">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15508"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -101,13 +101,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9fr-8t-9Ya">
                                 <rect key="frame" x="5" y="490" width="404" height="21"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <color key="textColor" systemColor="systemIndigoColor" red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6gz-2L-mc3">
                                 <rect key="frame" x="5" y="512" width="404" height="18"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
-                                <color key="textColor" systemColor="systemIndigoColor" red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="textColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dmd-Va-idU">
@@ -159,14 +159,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" searchBarStyle="prominent" translatesAutoresizingMaskIntoConstraints="NO" id="Gut-FJ-lad">
-                                <rect key="frame" x="0.0" y="115" width="414" height="56"/>
-                                <color key="barTintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <textInputTraits key="textInputTraits" textContentType="name"/>
-                            </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="aEr-Ab-b5L">
-                                <rect key="frame" x="5" y="181" width="404" height="627"/>
+                                <rect key="frame" x="5" y="187" width="404" height="621"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="621" id="f17-WI-vN0"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="DV3-uk-elH">
                                     <size key="itemSize" width="180" height="230"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -174,25 +172,40 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="GO2-oS-KAp" id="7f9-a4-HfS"/>
+                                    <outlet property="delegate" destination="GO2-oS-KAp" id="WT4-ku-6DU"/>
+                                </connections>
                             </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CCg-4W-JiD">
+                                <rect key="frame" x="0.0" y="90" width="414" height="55"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="CCg-4W-JiD" firstAttribute="centerX" secondItem="aEr-Ab-b5L" secondAttribute="centerX" id="2dg-xO-FhJ"/>
+                            <constraint firstItem="CCg-4W-JiD" firstAttribute="leading" secondItem="9rs-nT-AEY" secondAttribute="leading" id="7QM-PK-GkU"/>
+                            <constraint firstItem="CCg-4W-JiD" firstAttribute="top" secondItem="9rs-nT-AEY" secondAttribute="top" constant="2" id="8ng-HL-nG6"/>
                             <constraint firstItem="9rs-nT-AEY" firstAttribute="bottom" secondItem="aEr-Ab-b5L" secondAttribute="bottom" constant="5" id="9aF-Qr-TrB"/>
-                            <constraint firstItem="aEr-Ab-b5L" firstAttribute="top" secondItem="Gut-FJ-lad" secondAttribute="bottom" constant="10" id="MgN-EV-LZl"/>
-                            <constraint firstItem="Gut-FJ-lad" firstAttribute="leading" secondItem="9rs-nT-AEY" secondAttribute="leading" id="YrZ-OW-8Ka"/>
+                            <constraint firstItem="CCg-4W-JiD" firstAttribute="centerX" secondItem="9rs-nT-AEY" secondAttribute="centerX" id="MZV-6G-X5J"/>
                             <constraint firstItem="aEr-Ab-b5L" firstAttribute="leading" secondItem="9rs-nT-AEY" secondAttribute="leading" constant="5" id="f1Z-Ke-sMc"/>
-                            <constraint firstItem="Gut-FJ-lad" firstAttribute="top" secondItem="9rs-nT-AEY" secondAttribute="top" constant="27" id="o3q-sI-FNW"/>
-                            <constraint firstItem="Gut-FJ-lad" firstAttribute="trailing" secondItem="9rs-nT-AEY" secondAttribute="trailing" id="pDP-Ny-rJG"/>
                             <constraint firstItem="9rs-nT-AEY" firstAttribute="trailing" secondItem="aEr-Ab-b5L" secondAttribute="trailing" constant="5" id="rM8-NS-WIe"/>
+                            <constraint firstItem="aEr-Ab-b5L" firstAttribute="top" secondItem="CCg-4W-JiD" secondAttribute="bottom" constant="42" id="sLL-Zi-1RE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9rs-nT-AEY"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Search Album" id="Ybi-BY-a9d"/>
+                    <navigationItem key="navigationItem" title="Search Album" id="Ybi-BY-a9d">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="v8Y-lN-8EF"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="collectionView" destination="aEr-Ab-b5L" id="w7f-Qy-GDd"/>
+                        <outlet property="searchContainer" destination="CCg-4W-JiD" id="8WT-GQ-sOs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gsS-2q-75Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4879.7101449275369" y="-77.008928571428569"/>
+            <point key="canvasLocation" x="4895.652173913044" y="-77.008928571428569"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="2zd-Qe-Vfp">
@@ -249,13 +262,13 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jaF-ee-RoM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3969.5652173913045" y="-77.008928571428569"/>
+            <point key="canvasLocation" x="4022" y="-77"/>
         </scene>
     </scenes>
     <resources>
-        <image name="list.dash" catalog="system" width="64" height="44"/>
-        <image name="magnifyingglass" catalog="system" width="64" height="60"/>
+        <image name="list.dash" catalog="system" width="64" height="42"/>
+        <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="square.grid.2x2" catalog="system" width="64" height="56"/>
-        <image name="star.circle" catalog="system" width="64" height="62"/>
+        <image name="star.circle" catalog="system" width="64" height="60"/>
     </resources>
 </document>

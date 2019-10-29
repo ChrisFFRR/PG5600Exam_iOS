@@ -9,17 +9,20 @@
 import UIKit
 
 
-protocol AlbumDelegate {
-    func didSendAlbums(_ albums: [TopAlbum])
-}
+
 
 class Top50AlbumsViewController: UICollectionViewController {
+    
+    var masterVc = Top50AlbumsMasterViewController()
+    
+    var allAlbums: [TopAlbum] = []
     
     var topAlbumList = [TopAlbum]() {
         didSet {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
-                print("Total albums in GridVC = \(self.topAlbumList.count)")
+                print("Total albums in GridVC!!!! = \(self.topAlbumList.count)")
+                print("Total allAlbums = \(self.allAlbums.count)")
             }
         }
     }
@@ -29,6 +32,10 @@ class Top50AlbumsViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        masterVc.delegate = self
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.masterVc.sendAlbumsToVc()
+        }
         
         //register topalbum cell
         let topAlbumNib = UINib(nibName: "TopAlbumCell", bundle: nil)
@@ -84,11 +91,8 @@ class Top50AlbumsViewController: UICollectionViewController {
         cell.layer.cornerRadius = 10
         
         Utils.convertStrToUIImage(album.strAlbumThumb) { uiImage in
-           
                 cell.albumImage.image = uiImage
-            
         }
-        
         cell.albumArtist.text = album.strArtist
         cell.albumTitle.text = album.strAlbum
                  
@@ -106,39 +110,17 @@ class Top50AlbumsViewController: UICollectionViewController {
         
     }
     
-   
+}
 
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        return true
+extension Top50AlbumsViewController: AlbumDelegate {
+    func didSendAlbums(_ albums: [TopAlbum]) {
+        print(albums.count)
+        self.allAlbums = albums.map({$0})
+        print("Delegate function MVC")
+        print(self.allAlbums.count)
+        //self.navigationItem.title = "Top \(self.allAlbums.count) Albums"
+        
     }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        return false
-    }
-
-    override func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-    
-    }
-    */
-    
 }
 
 class Utils {
@@ -186,3 +168,4 @@ class Utils {
       }
 }
 
+// Delete all delegate references if you cant get it to work!!!!

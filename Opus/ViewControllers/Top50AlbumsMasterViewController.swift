@@ -8,18 +8,24 @@
 
 import UIKit
 
-
+protocol AlbumDelegate {
+    func didSendAlbums(_ albums: [TopAlbum])
+}
 
 class Top50AlbumsMasterViewController: UIViewController {
    
+     var delegate: AlbumDelegate?
     
+    var secondAlbums: [TopAlbum] = []
     var totalAlbums = [TopAlbum]() {
         didSet {
-             print("Total albums in mvc = \(totalAlbums.count)")
+         
+            print("Total albums in mvc = \(totalAlbums.count)")
             DispatchQueue.main.async {
-                 self.navigationItem.title = "Top \(self.totalAlbums.count) Albums"
+                self.navigationItem.title = "Top \(self.totalAlbums.count) Albums"
+               
             }
-           
+            
         }
     }
     
@@ -45,31 +51,44 @@ class Top50AlbumsMasterViewController: UIViewController {
            return vc
        }()
     
-    override func viewWillAppear(_ animated: Bool) {
-         let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
 
-               DispatchQueue.init(label: "background").async {
-               topAlbums.getTopAlbums { [weak self] result in
-                          guard let result = result else {
-                              print("Could not fetch Albums")
-                              return
-                          }
-                          self?.totalAlbums = result
-                      }
-               }
-    }
     
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-  
-         navigationItem.title = "Loading"
+        
+        let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
+        
+        DispatchQueue.global(qos: .background).async {
+            topAlbums.getTopAlbums { [weak self] result in
+                guard let result = result else {
+                    print("Could not fetch Albums")
+                    return
+                }
+                self?.secondAlbums = result.map({$0})
+                self?.totalAlbums = result
+            }
+        }
+        
+            
+       
+        navigationItem.title = "Loading"
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Scroll to top", style: .done, target: self, action: #selector(scrollToTop(_:)))
         
-         segmentedController.selectedSegmentIndex = 0
+        segmentedController.selectedSegmentIndex = 0
         topAlbumsGridVc.view.isHidden = false
         segmentedController.addTarget(self, action: #selector(selectionDidChange(sender:)), for: .valueChanged)
-       
+        
+    }
+    
+    func sendAlbumsToVc() {
+        if let delegate = self.delegate {
+            delegate.didSendAlbums(self.totalAlbums)
+            print("sending from mastervc: \(self.totalAlbums.count)")
+            
+        } else {
+            print("Delegate not implemented correctly")
+        }
     }
     
    
@@ -93,18 +112,14 @@ class Top50AlbumsMasterViewController: UIViewController {
     }
     
     @objc func scrollToTop(_ sender: Any) {
-        topAlbumsGridVc.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        if !topAlbumsGridVc.view.isHidden { topAlbumsGridVc.collectionView.scrollToItem(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        } else {
+            topAlbumsListVc.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        }
     }
    
 }
 
-extension Top50AlbumsMasterViewController: AlbumDelegate {
-    func didSendAlbums(_ albums: [TopAlbum]) {
-        self.totalAlbums = albums.map({$0})
-        print("Delegate function MVC")
-        self.navigationItem.title = "Top \(self.totalAlbums.count) Albums"
-        
-    }
-}
+
 
 
