@@ -25,11 +25,12 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
 
-    var albumImageData = UIImage()
+    var albumImageStr = ""
     var albumTitleData = ""
     var albumArtistData = ""
     var albumIdString = ""
    
+    
     
     
     override func viewDidLoad() {
@@ -44,7 +45,10 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
         
         trackContainer.layer.cornerRadius = 10
 
-        albumImage.image = albumImageData
+        Utils.convertStrToUIImage(albumImageStr){ albumCover in
+            self.albumImage.image = albumCover
+        }
+
         albumTitle.text = albumTitleData
         albumArtist.text = albumArtistData
         
@@ -70,12 +74,7 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TrackListViewCell", for: indexPath) as? TrackListViewCell else {
             fatalError("Could not dequeue TrackListViewCell")
         }
-        
-        
-        
         cell.trackTitle.text = albumTracks[indexPath.row].strTrack
-       
-       
         cell.trackDuration.text = convertFromStringToCorrectTime(from: albumTracks[indexPath.row].strDuration)
         
         return cell

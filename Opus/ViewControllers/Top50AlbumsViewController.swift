@@ -83,10 +83,10 @@ class Top50AlbumsViewController: UICollectionViewController {
         cell.contentView.layer.masksToBounds = true
         cell.layer.cornerRadius = 10
         
-        Utils.convertStrToUIImageReturn(album.strAlbumThumb) { uiImage in
-            DispatchQueue.main.async {
+        Utils.convertStrToUIImage(album.strAlbumThumb) { uiImage in
+           
                 cell.albumImage.image = uiImage
-            }
+            
         }
         
         cell.albumArtist.text = album.strArtist
@@ -143,6 +143,7 @@ class Top50AlbumsViewController: UICollectionViewController {
 
 class Utils {
     
+    /*
     static func convertStrToUIImage(_ albumUrl: String) -> UIImage {
         let imageUrl = URL(string: albumUrl)
         
@@ -153,13 +154,16 @@ class Utils {
             fatalError()
         }
     }
+ */
     
-    static func convertStrToUIImageReturn(_ albumUrl: String, completion: @escaping(UIImage) -> Void) {
+    static func convertStrToUIImage(_ albumUrl: String, completion: @escaping(UIImage) -> Void) {
         let imageUrl = URL(string: albumUrl)
         DispatchQueue.global(qos: .background).async {
            if let data = try? Data(contentsOf: imageUrl!) {
             let image: UIImage = UIImage(data: data)!
-            completion(image)
+            DispatchQueue.main.async {
+                completion(image)
+            }
            } else {
             fatalError()
             }
@@ -168,8 +172,7 @@ class Utils {
     
     static func setUpAndShowModal( album: TopAlbum, _ albumDetailVC: AlbumDetailViewController?, senderVC: UIViewController) {
          
-          
-          albumDetailVC?.albumImageData = Utils.convertStrToUIImage(album.strAlbumThumb)
+          albumDetailVC?.albumImageStr = album.strAlbumThumb
           albumDetailVC?.albumTitleData = album.strAlbum
           albumDetailVC?.albumArtistData = album.strArtist
           albumDetailVC?.albumIdString = album.idAlbum
@@ -178,6 +181,8 @@ class Utils {
           let navController = UINavigationController(rootViewController: albumDetailVC!)
           navController.setNavigationBarHidden( true, animated: true)
           senderVC.present(navController, animated: true)
+        
+         
       }
 }
 
