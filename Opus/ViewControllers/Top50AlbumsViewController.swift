@@ -114,10 +114,8 @@ class Top50AlbumsViewController: UICollectionViewController {
 
 extension Top50AlbumsViewController: AlbumDelegate {
     func didSendAlbums(_ albums: [TopAlbum]) {
-        print(albums.count)
         self.allAlbums = albums.map({$0})
-        print("Delegate function MVC")
-        print(self.allAlbums.count)
+        print("Receiving from delegate: \(albums.count)")
         //self.navigationItem.title = "Top \(self.allAlbums.count) Albums"
         
     }
