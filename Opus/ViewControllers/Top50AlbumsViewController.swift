@@ -34,15 +34,15 @@ class Top50AlbumsViewController: UICollectionViewController {
         let topAlbumNib = UINib(nibName: "TopAlbumCell", bundle: nil)
         collectionView.register(topAlbumNib, forCellWithReuseIdentifier: "TopAlbumCell")
 
-        let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
-
-
-        topAlbums.getTopAlbums { [weak self] result in
-            guard let result = result else {
-                print("Could not fetch Albums")
-                return
+        DispatchQueue.global(qos: .background).async {
+            let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
+            topAlbums.getTopAlbums { [weak self] result in
+                guard let result = result else {
+                    print("Could not fetch Albums")
+                    return
+                }
+                self?.topAlbumList = result
             }
-            self?.topAlbumList = result
         }
     }
     override func viewWillLayoutSubviews() {
