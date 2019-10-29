@@ -44,7 +44,14 @@ class Top50AlbumsListViewController: UITableViewController{
         
         let album = totalAlbums[indexPath.row]
         
-        cell.albumImage.image = Utils.convertStrToUIImage(album.strAlbumThumb)
+         Utils.convertStrToUIImageReturn(album.strAlbumThumb) { uiImage in
+            DispatchQueue.global(qos: .background).async {
+                DispatchQueue.main.async {
+                    cell.albumImage.image = uiImage
+                }
+              
+            }
+        }
         cell.albumTitle.text = album.strAlbum
         cell.artistName.text = album.strArtist
         

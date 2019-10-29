@@ -79,14 +79,19 @@ class Top50AlbumsViewController: UICollectionViewController {
         
         let album = topAlbumList[indexPath.row]
         
-        cell.albumImage.image = Utils.convertStrToUIImage(album.strAlbumThumb)
-        cell.albumArtist.text = album.strArtist
-        cell.albumTitle.text = album.strAlbum
-        
         // Add rounded corners
         cell.contentView.layer.masksToBounds = true
         cell.layer.cornerRadius = 10
         
+        Utils.convertStrToUIImageReturn(album.strAlbumThumb) { uiImage in
+            DispatchQueue.main.async {
+                cell.albumImage.image = uiImage
+            }
+        }
+        
+        cell.albumArtist.text = album.strArtist
+        cell.albumTitle.text = album.strAlbum
+                 
         return cell
     }
     
@@ -138,15 +143,28 @@ class Top50AlbumsViewController: UICollectionViewController {
 
 class Utils {
     
-   static func convertStrToUIImage(_ albumUrl: String) -> UIImage {
-             let imageUrl = URL(string: albumUrl)
-             if let data = try? Data(contentsOf: imageUrl!) {
-                 let image: UIImage = UIImage(data: data)!
-                 return image
-             } else {
-                 fatalError()
-             }
-         }
+    static func convertStrToUIImage(_ albumUrl: String) -> UIImage {
+        let imageUrl = URL(string: albumUrl)
+        
+        if let data = try? Data(contentsOf: imageUrl!) {
+            let image: UIImage = UIImage(data: data)!
+            return image
+        } else {
+            fatalError()
+        }
+    }
+    
+    static func convertStrToUIImageReturn(_ albumUrl: String, completion: @escaping(UIImage) -> Void) {
+        let imageUrl = URL(string: albumUrl)
+        DispatchQueue.global(qos: .background).async {
+           if let data = try? Data(contentsOf: imageUrl!) {
+            let image: UIImage = UIImage(data: data)!
+            completion(image)
+           } else {
+            fatalError()
+            }
+        }
+    }
     
     static func setUpAndShowModal( album: TopAlbum, _ albumDetailVC: AlbumDetailViewController?, senderVC: UIViewController) {
          
