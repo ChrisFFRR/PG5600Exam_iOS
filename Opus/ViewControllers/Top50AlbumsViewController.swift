@@ -15,17 +15,23 @@ class Top50AlbumsViewController: UICollectionViewController {
     
     var masterVc = Top50AlbumsMasterViewController()
     
-    var allAlbums: [TopAlbum] = []
-    
     var topAlbumList = [TopAlbum]() {
         didSet {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
-                print("Total albums in GridVC!!!! = \(self.topAlbumList.count)")
-                print("Total allAlbums = \(self.allAlbums.count)")
             }
         }
     }
+    
+//    var topAlbumList = [TopAlbum]() {
+//        didSet {
+//            DispatchQueue.main.async {
+//                self.collectionView.reloadData()
+//                print("Total albums in GridVC!!!! = \(self.topAlbumList.count)")
+//                print("Total allAlbums = \(self.allAlbums.count)")
+//            }
+//        }
+//    }
     var collectionViewFlowLayout:  UICollectionViewFlowLayout!
     
     
@@ -37,20 +43,22 @@ class Top50AlbumsViewController: UICollectionViewController {
             self.masterVc.sendAlbumsToVc()
         }
         
+        
+        
         //register topalbum cell
         let topAlbumNib = UINib(nibName: "TopAlbumCell", bundle: nil)
         collectionView.register(topAlbumNib, forCellWithReuseIdentifier: "TopAlbumCell")
 
-        DispatchQueue.global(qos: .background).async {
-            let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
-            topAlbums.getTopAlbums { [weak self] result in
-                guard let result = result else {
-                    print("Could not fetch Albums")
-                    return
-                }
-                self?.topAlbumList = result
-            }
-        }
+//        DispatchQueue.global(qos: .background).async {
+//            let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
+//            topAlbums.getTopAlbums { [weak self] result in
+//                guard let result = result else {
+//                    print("Could not fetch Albums")
+//                    return
+//                }
+//                self?.topAlbumList = result
+//            }
+//        }
     }
     override func viewWillLayoutSubviews() {
         if collectionViewFlowLayout == nil {
@@ -114,9 +122,13 @@ class Top50AlbumsViewController: UICollectionViewController {
 
 extension Top50AlbumsViewController: AlbumDelegate {
     func didSendAlbums(_ albums: [TopAlbum]) {
-        self.allAlbums = albums.map({$0})
+        if albums.count > 0 {
+        self.topAlbumList = albums.map({$0})
         print("Receiving from delegate: \(albums.count)")
         //self.navigationItem.title = "Top \(self.allAlbums.count) Albums"
+        } else {
+            print("Did not receive anything from delegate")
+        }
         
     }
 }
