@@ -205,7 +205,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gsS-2q-75Z" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4895.652173913044" y="-77.008928571428569"/>
+            <point key="canvasLocation" x="5805.7971014492759" y="-77.008928571428569"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="2zd-Qe-Vfp">
@@ -219,11 +219,42 @@
                     <connections>
                         <segue destination="ubM-Eb-V5p" kind="relationship" relationship="viewControllers" id="gOp-MI-iK4"/>
                         <segue destination="d8B-tM-L4G" kind="relationship" relationship="viewControllers" id="e1G-vG-TPv"/>
+                        <segue destination="vdt-vO-EDq" kind="relationship" relationship="viewControllers" id="ehq-6P-w3i"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UP1-7D-tak" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2735" y="-1489"/>
+        </scene>
+        <!--Favourites-->
+        <scene sceneID="tqq-eK-QsQ">
+            <objects>
+                <tableViewController storyboardIdentifier="FavouritesViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="AZy-pC-bLm" customClass="FavouritesViewController" customModule="Opus" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="8FF-BF-Ocf">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="hMh-6u-Kio">
+                                <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hMh-6u-Kio" id="9j3-7c-KQw">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="AZy-pC-bLm" id="HeT-u8-LLt"/>
+                            <outlet property="delegate" destination="AZy-pC-bLm" id="8wT-cL-WBa"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Favourites" id="9wX-NG-jHR"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Wgk-oD-fp8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3565.217391304348" y="-77.008928571428569"/>
         </scene>
         <!--Top 50 Albums-->
         <scene sceneID="kQo-9b-fie">
@@ -262,10 +293,30 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jaF-ee-RoM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4022" y="-77"/>
+            <point key="canvasLocation" x="4931.884057971015" y="-77.008928571428569"/>
+        </scene>
+        <!--Favourites-->
+        <scene sceneID="B8S-uK-wnp">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vdt-vO-EDq" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Favourites" image="heart.fill" catalog="system" id="9Fu-Qt-sHY"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="3WQ-dK-YLD">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="AZy-pC-bLm" kind="relationship" relationship="rootViewController" id="j7y-pF-Dkk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UVm-9V-HWD" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2653.6231884057975" y="-77.008928571428569"/>
         </scene>
     </scenes>
     <resources>
+        <image name="heart.fill" catalog="system" width="64" height="54"/>
         <image name="list.dash" catalog="system" width="64" height="42"/>
         <image name="magnifyingglass" catalog="system" width="64" height="56"/>
         <image name="square.grid.2x2" catalog="system" width="64" height="56"/>

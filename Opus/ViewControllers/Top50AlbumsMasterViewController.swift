@@ -23,6 +23,7 @@ class Top50AlbumsMasterViewController: UIViewController {
             print("Total albums in mvc = \(totalAlbums.count)")
             DispatchQueue.main.async {
                 self.navigationItem.title = "Top \(self.totalAlbums.count) Albums"
+                
             }
         }
     }
@@ -35,11 +36,9 @@ class Top50AlbumsMasterViewController: UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
         vc.topAlbumList = self.totalAlbums.map({$0})
-        print(vc.topAlbumList.count)
+        print("Lazy loaded: " , vc.topAlbumList.count)
         }
-        
         self.addViewControllerAsChild(childVc: vc)
-        
         return vc
     }()
     

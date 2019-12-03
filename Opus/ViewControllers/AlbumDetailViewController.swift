@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -79,11 +80,26 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell: TrackListViewCell = tableView.cellForRow(at: indexPath) as! TrackListViewCell
-        selectedCell.contentView.backgroundColor = .purple
+       //Lag en alert "added to favorites"
+        saveEntityToCore(cell: selectedCell)
+        
+        
+    }
+    
+    private func saveEntityToCore(cell: TrackListViewCell) {
+       
+        let favoriteEntity = NSEntityDescription.entity(forEntityName: "FavouriteTrack", in: AppDelegate.context)
+        
+        let newFavorite = NSManagedObject(entity: favoriteEntity!, insertInto: AppDelegate.context)
+        
+        newFavorite.setValue(albumArtist.text!, forKey: "artist")
+        newFavorite.setValue(cell.trackTitle.text!, forKey: "trackTitle")
+        newFavorite.setValue(cell.trackDuration.text!, forKey: "trackDuration")
         print(albumArtist.text!)
-        print(selectedCell.trackTitle.text!)
+        print(cell.trackTitle.text!)
+        print(cell.trackDuration.text!)
         
-        
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
     }
     
     
