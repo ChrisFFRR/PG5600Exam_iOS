@@ -77,6 +77,16 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedCell: TrackListViewCell = tableView.cellForRow(at: indexPath) as! TrackListViewCell
+        selectedCell.contentView.backgroundColor = .purple
+        print(albumArtist.text!)
+        print(selectedCell.trackTitle.text!)
+        
+        
+    }
+    
+    
     private func convertFromStringToCorrectTime(from stringDur: String) -> String {
         let timeInt = NSInteger(stringDur)
         
