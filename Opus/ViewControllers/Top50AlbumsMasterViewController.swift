@@ -33,7 +33,7 @@ class Top50AlbumsMasterViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc = storyboard.instantiateViewController(withIdentifier: "Top50AlbumsViewController") as! Top50AlbumsViewController
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.9) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
         vc.topAlbumList = self.totalAlbums.map({$0})
         print(vc.topAlbumList.count)
         }

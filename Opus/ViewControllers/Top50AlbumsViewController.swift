@@ -39,7 +39,7 @@ class Top50AlbumsViewController: UICollectionViewController {
         super.viewDidLoad()
         
         masterVc.delegate = self
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.masterVc.sendAlbumsToVc()
         }
         

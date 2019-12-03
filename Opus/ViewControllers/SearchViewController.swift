@@ -15,6 +15,7 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UICollect
     @IBOutlet weak var searchContainer: UIView!
     @IBOutlet weak var collectionView: UICollectionView!
     
+    var collectionViewFlowLayout: UICollectionViewFlowLayout!
     
 
     let searchController = UISearchController(searchResultsController: nil)
@@ -32,7 +33,16 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UICollect
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        albums += [TopAlbum(idAlbum: "001", idArtist: "010", strAlbum: "Test Album", strArtist: "Test Artist", strArtistStripped: "Test", intYearReleased: "2019", strGenre: "TestCore", strAlbumThumb: "imageString"), TopAlbum(idAlbum: "001", idArtist: "010", strAlbum: "Test Album", strArtist: "Test Artist", strArtistStripped: "Test", intYearReleased: "2019", strGenre: "TestCore", strAlbumThumb: "imageString"),TopAlbum(idAlbum: "001", idArtist: "010", strAlbum: "Test Album", strArtist: "Test Artist", strArtistStripped: "Test", intYearReleased: "2019", strGenre: "TestCore", strAlbumThumb: "imageString"),TopAlbum(idAlbum: "001", idArtist: "010", strAlbum: "Test Album", strArtist: "Test Artist", strArtistStripped: "Test", intYearReleased: "2019", strGenre: "TestCore", strAlbumThumb: "imageString"),TopAlbum(idAlbum: "001", idArtist: "010", strAlbum: "Test Album", strArtist: "Test Artist", strArtistStripped: "Test", intYearReleased: "2019", strGenre: "TestCore", strAlbumThumb: "imageString"),TopAlbum(idAlbum: "001", idArtist: "010", strAlbum: "Test Album", strArtist: "Test Artist", strArtistStripped: "Test", intYearReleased: "2019", strGenre: "TestCore", strAlbumThumb: "imageString")]
+        let topAlbums =  NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
+        topAlbums.getTopAlbums {[weak self] result in
+            guard let result = result else {
+                print("Could not fetch Albums")
+                return
+            }
+            self?.albums += result
+        }
+        
+       
        
     
         //register topalbum cell
@@ -53,6 +63,25 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UICollect
       
     }
     
+    override func viewWillLayoutSubviews() {
+           if collectionViewFlowLayout == nil {
+               let numberOfItemsRow:  CGFloat = 2
+               let lineSpacing: CGFloat = 15
+               let interItemSpacing: CGFloat = 15
+               let width = (collectionView.frame.width - (numberOfItemsRow - 1) * interItemSpacing) / numberOfItemsRow
+               
+               collectionViewFlowLayout = UICollectionViewFlowLayout()
+               collectionViewFlowLayout.itemSize = CGSize(width: CGFloat(width), height: CGFloat(230))
+               collectionViewFlowLayout.scrollDirection = .vertical
+               collectionViewFlowLayout.minimumLineSpacing = lineSpacing
+               collectionViewFlowLayout.minimumInteritemSpacing = interItemSpacing
+               collectionViewFlowLayout.sectionInset.top = CGFloat(15)
+               
+               
+               collectionView.setCollectionViewLayout(collectionViewFlowLayout, animated: true)
+           }
+       }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return filteredAlbums.count
        }
@@ -64,6 +93,10 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UICollect
         cell.albumArtist.text = albumDetail.strArtist
         cell.albumTitle.text = albumDetail.strAlbum
         
+        Utils.convertStrToUIImage(albumDetail.strAlbumThumb) { uiImage in
+            cell.albumImage.image = uiImage
+        }
+        
         return cell
        }
     
@@ -71,7 +104,7 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UICollect
     func filterContextOnSearch(_ input: String) {
         
         filteredAlbums = albums.filter { (album: TopAlbum) -> Bool in
-            return album.strAlbum.lowercased().contains(input.lowercased())
+            return album.strArtist.lowercased().contains(input.lowercased())
         }
         collectionView.reloadData()
     }
