@@ -39,7 +39,7 @@ class Top50AlbumsViewController: UICollectionViewController {
         super.viewDidLoad()
         
         masterVc.delegate = self
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             self.masterVc.sendAlbumsToVc()
         }
         
@@ -135,18 +135,6 @@ extension Top50AlbumsViewController: AlbumDelegate {
 
 class Utils {
     
-    /*
-    static func convertStrToUIImage(_ albumUrl: String) -> UIImage {
-        let imageUrl = URL(string: albumUrl)
-        
-        if let data = try? Data(contentsOf: imageUrl!) {
-            let image: UIImage = UIImage(data: data)!
-            return image
-        } else {
-            fatalError()
-        }
-    }
- */
     
     static func convertStrToUIImage(_ albumUrl: String, completion: @escaping(UIImage) -> Void) {
         let imageUrl = URL(string: albumUrl)

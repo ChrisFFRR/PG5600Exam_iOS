@@ -12,7 +12,7 @@ class TrackListViewCell: UITableViewCell {
 
     @IBOutlet weak var trackTitle: UILabel!
     @IBOutlet weak var trackDuration: UILabel!
-    
+ 
    
     override func awakeFromNib() {
         super.awakeFromNib()
