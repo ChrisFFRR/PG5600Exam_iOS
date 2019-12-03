@@ -8,36 +8,48 @@
 
 import UIKit
 
-class AlbumDetailViewController: UIViewController {
+class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    
+    @IBOutlet weak var albumImage: UIImageView!
+       @IBOutlet weak var albumTitle: UILabel!
+       @IBOutlet weak var albumArtist: UILabel!
+       @IBOutlet weak var trackContainer: UITableView!
+   
     
     var albumTracks = [Album]() {
-    
-        didSet {
+        didSet{
             DispatchQueue.main.async {
-                
-                for track in self.albumTracks { print("\(track.strTrack)")
-                }
+                self.trackContainer.reloadData()
             }
         }
-        
     }
 
-    @IBOutlet weak var albumImage: UIImageView!
-    @IBOutlet weak var albumTitle: UILabel!
-    @IBOutlet weak var albumArtist: UILabel!
-    
-    var albumImageData = UIImage()
+    var albumImageStr = ""
     var albumTitleData = ""
     var albumArtistData = ""
     var albumIdString = ""
+   
+    
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+       
+        //register trackListCell
+        let trackInfoNib = UINib(nibName: "TrackListViewCell", bundle: nil)
+        trackContainer.register(trackInfoNib, forCellReuseIdentifier: "TrackListViewCell")
+        trackContainer.delegate = self
+        trackContainer.dataSource = self
+        
+        trackContainer.layer.cornerRadius = 10
 
-        albumImage.image = albumImageData
+        Utils.convertStrToUIImage(albumImageStr){ albumCover in
+            self.albumImage.image = albumCover
+        }
+
         albumTitle.text = albumTitleData
-        print(albumTitleData)
         albumArtist.text = albumArtistData
         
       
@@ -48,22 +60,36 @@ class AlbumDetailViewController: UIViewController {
             albumTracks.getAlbumTracks { [weak self] result in
                 self?.albumTracks = result!
             }
-          //get albumTracks
-        
-        
-        // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return albumTracks.count
+        
     }
-    */
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TrackListViewCell", for: indexPath) as? TrackListViewCell else {
+            fatalError("Could not dequeue TrackListViewCell")
+        }
+        cell.trackTitle.text = albumTracks[indexPath.row].strTrack
+        cell.trackDuration.text = convertFromStringToCorrectTime(from: albumTracks[indexPath.row].strDuration)
+        
+        return cell
+    }
+    
+    private func convertFromStringToCorrectTime(from stringDur: String) -> String {
+        let timeInt = NSInteger(stringDur)
+        
+        let minutes = timeInt! / 60000
+        let seconds = (timeInt! / 1000) % 60
+        
+        let converted = NSString(format: "%d:%.2d",minutes, seconds)
+        
+        return String(converted)
+        
+    }
 
 }
+
+
 

@@ -8,13 +8,14 @@
 
 import Foundation
 
+
+
 enum NetworkError: Error {
     case decodingError(message: String)
 }
 
 
 class NetworkHandler {
-    
     
     let resourceURL:URL
     
@@ -33,7 +34,7 @@ class NetworkHandler {
                 print(error?.localizedDescription as Any)
                 return
             }
-            
+           
             withCompletion(data)
         }).resume()
     }
