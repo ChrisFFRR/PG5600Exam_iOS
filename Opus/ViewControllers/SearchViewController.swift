@@ -60,25 +60,27 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UICollect
         extendedLayoutIncludesOpaqueBars = true
         searchController.searchBar.barStyle = .black
         searchContainer.addSubview(searchController.searchBar)
+       
+        
+        
+    
         
       
     }
     
     override func viewWillLayoutSubviews() {
            if collectionViewFlowLayout == nil {
-               let numberOfItemsRow:  CGFloat = 2
-               let lineSpacing: CGFloat = 15
-               let interItemSpacing: CGFloat = 15
-               let width = (collectionView.frame.width - (numberOfItemsRow - 1) * interItemSpacing) / numberOfItemsRow
-               
+
+               let lineSpacing: CGFloat = 20
+               let interItemSpacing: CGFloat = 10
+               let width = collectionView.frame.width / 2
                collectionViewFlowLayout = UICollectionViewFlowLayout()
-               collectionViewFlowLayout.itemSize = CGSize(width: CGFloat(width), height: CGFloat(230))
+               collectionViewFlowLayout.itemSize = CGSize(width: CGFloat(width), height: CGFloat(230)) //230
                collectionViewFlowLayout.scrollDirection = .vertical
                collectionViewFlowLayout.minimumLineSpacing = lineSpacing
                collectionViewFlowLayout.minimumInteritemSpacing = interItemSpacing
                collectionViewFlowLayout.sectionInset.top = CGFloat(15)
-               
-               
+
                collectionView.setCollectionViewLayout(collectionViewFlowLayout, animated: true)
            }
        }
@@ -91,6 +93,9 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UICollect
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopAlbumCell", for: indexPath) as! TopAlbumCell
         
         let albumDetail = filteredAlbums[indexPath.row]
+        
+        cell.contentView.layer.masksToBounds = true
+        cell.layer.cornerRadius = 10
         cell.albumArtist.text = albumDetail.strArtist
         cell.albumTitle.text = albumDetail.strAlbum
         
@@ -143,15 +148,4 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UICollect
            }
     
        }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

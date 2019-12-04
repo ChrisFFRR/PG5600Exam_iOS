@@ -30,7 +30,6 @@
 		47C39023234F37760092D6A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47C39021234F37760092D6A9 /* LaunchScreen.storyboard */; };
 		47C3902E234F37760092D6A9 /* OpusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C3902D234F37760092D6A9 /* OpusTests.swift */; };
 		47C39039234F37760092D6A9 /* OpusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C39038234F37760092D6A9 /* OpusUITests.swift */; };
-		47F1163A23563B25008A1E47 /* ApiEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F1163923563B25008A1E47 /* ApiEndpoints.swift */; };
 		47F1163C235657FE008A1E47 /* AlbumDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F1163B235657FE008A1E47 /* AlbumDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -81,7 +80,6 @@
 		47C39034234F37760092D6A9 /* OpusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		47C39038234F37760092D6A9 /* OpusUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpusUITests.swift; sourceTree = "<group>"; };
 		47C3903A234F37760092D6A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		47F1163923563B25008A1E47 /* ApiEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEndpoints.swift; sourceTree = "<group>"; };
 		47F1163B235657FE008A1E47 /* AlbumDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -131,7 +129,6 @@
 			isa = PBXGroup;
 			children = (
 				471B87E02352249A002995DB /* NetworkHandler.swift */,
-				47F1163923563B25008A1E47 /* ApiEndpoints.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -368,7 +365,6 @@
 				47C3901E234F376E0092D6A9 /* Opus.xcdatamodeld in Sources */,
 				47864E992396BE8800647B2B /* FavouritesViewController.swift in Sources */,
 				471B87DB2352052E002995DB /* Top50AlbumsViewController.swift in Sources */,
-				47F1163A23563B25008A1E47 /* ApiEndpoints.swift in Sources */,
 				47C39014234F376E0092D6A9 /* AppDelegate.swift in Sources */,
 				47F1163C235657FE008A1E47 /* AlbumDetailViewController.swift in Sources */,
 				47C39016234F376E0092D6A9 /* SceneDelegate.swift in Sources */,

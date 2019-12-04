@@ -2,8 +2,8 @@
 //  FavoritesViewCell.swift
 //  Opus
 //
-//  Created by Christopher Marchand on 03/12/2019.
-//  Copyright © 2019 Christopher Marchand. All rights reserved.
+//  Created  on 03/12/2019.
+//  Copyright © All rights reserved.
 //
 
 import UIKit

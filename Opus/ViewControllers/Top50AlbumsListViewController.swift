@@ -2,8 +2,8 @@
 //  Top50AlbumsListViewController.swift
 //  Opus
 //
-//  Created by Christopher Marchand on 22/10/2019.
-//  Copyright © 2019 Christopher Marchand. All rights reserved.
+//  Created on 22/10/2019.
+//  Copyright © 2019. All rights reserved.
 //
 
 import UIKit
@@ -21,6 +21,17 @@ class Top50AlbumsListViewController: UITableViewController{
         
         let topAlbumNib = UINib(nibName: "TopAlbumListViewCell", bundle: nil)
         tableView.register(topAlbumNib, forCellReuseIdentifier: "TopAlbumListViewCell")
+        
+        let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
+        
+                topAlbums.getTopAlbums { [weak self] result in
+                    guard let result = result else {
+                        print("Could not fetch Albums")
+                        return
+                    }
+                      self?.totalAlbums = result
+                  
+                }
     
         
         tableView.reloadData()

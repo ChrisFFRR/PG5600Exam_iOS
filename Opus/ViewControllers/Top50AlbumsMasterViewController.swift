@@ -2,8 +2,8 @@
 //  Top50AlbumsMasterViewController.swift
 //  Opus
 //
-//  Created by Christopher Marchand on 22/10/2019.
-//  Copyright © 2019 Christopher Marchand. All rights reserved.
+//  Created on 22/10/2019.
+//  Copyright © 2019. All rights reserved.
 //
 
 import UIKit
@@ -14,10 +14,21 @@ protocol AlbumDelegate {
 
 class Top50AlbumsMasterViewController: UIViewController {
    
-     var delegate: AlbumDelegate?
+/*
+      For å implementere segmented controll, tenkte jeg at jeg kunne ha en Master viewcontroller som sendte topalbums til "topalbumGridVC" og "topalbumListVC" ved å lazyloade grid og liste viewcontrollerene for å minimere nettverkskall til bare denne viewcontrolleren.
     
-    var secondAlbums: [TopAlbum] = []
-   
+     Jeg støtte på et problem/bug som gjorde at programflyten gjorde at lazyloadingen ble instansiert før masterGridViewcontroller (denne klassen), og endte opp med å ikke kunne vise noen album, siden TotalAlbums ble populert etter at grid viewcontroller var lastet inn.
+     
+     Det ble også et problem hvis man trykket på segmented controller mens nettverkskallet kjørte.
+     
+     Jeg endte derfor opp med å implementere nettverkskall i hver viewcontroller for å unngå denne buggen da jeg ikke fant ut hvordan jeg kunne løse dette problemet.
+     
+     Jeg forsøkte å lage et  delegat, og en "hack" for å utsette sending av objektene til viewcontroller som jeg har latt være i koden (kommentert bort) for å vise tankegangen, da jeg brukte en del tid på det.
+     */
+    
+    
+//     var delegate: AlbumDelegate?
+    
     var totalAlbums = [TopAlbum]() {
         didSet {
             print("Total albums in mvc = \(totalAlbums.count)")
@@ -30,14 +41,21 @@ class Top50AlbumsMasterViewController: UIViewController {
     
     @IBOutlet var segmentedController: UISegmentedControl!
     
+
     private lazy var topAlbumsGridVc: Top50AlbumsViewController = {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc = storyboard.instantiateViewController(withIdentifier: "Top50AlbumsViewController") as! Top50AlbumsViewController
+ 
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-        vc.topAlbumList = self.totalAlbums.map({$0})
-        print("Lazy loaded: " , vc.topAlbumList.count)
-        }
+        /*
+         Denne "hacken" løste problemet med visning av album med delegat, men
+
+         DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+          vc.topAlbumList = self.totalAlbums.map({$0})
+          print("Lazy loaded: " , vc.topAlbumList.count)
+         }
+         */
+        
         self.addViewControllerAsChild(childVc: vc)
         return vc
     }()
@@ -62,7 +80,6 @@ class Top50AlbumsMasterViewController: UIViewController {
                     print("Could not fetch Albums")
                     return
                 }
-                  self?.secondAlbums = result.map({$0})
                   self?.totalAlbums = result
             }
     
@@ -75,17 +92,16 @@ class Top50AlbumsMasterViewController: UIViewController {
         segmentedController.addTarget(self, action: #selector(selectionDidChange(sender:)), for: .valueChanged)
     }
     
-    func sendAlbumsToVc() {
-        print(self.totalAlbums.count)
-        let albumsToSend = self.totalAlbums.map({$0})
-        print(albumsToSend.count)
-        if let delegate = self.delegate {
-            delegate.didSendAlbums(self.totalAlbums)
-            print("sending from mastervc: \(self.totalAlbums.count)")
-        } else {
-            print("Delegate not implemented correctly")
-        }
-    }
+//    func sendAlbumsToVc() {
+//        let albumsToSend = self.totalAlbums.map({$0})
+//        print(albumsToSend.count)
+//        if let delegate = self.delegate {
+//            delegate.didSendAlbums(self.totalAlbums)
+//            print("sending from mastervc: \(self.secondAlbums.count)")
+//        } else {
+//            print("Delegate not implemented correctly")
+//        }
+//    }
        
 
     //https://www.youtube.com/watch?v=kq-lHR5ZOW0

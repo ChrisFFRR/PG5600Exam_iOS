@@ -2,8 +2,8 @@
 //  TopAlbumListViewCell.swift
 //  Opus
 //
-//  Created by Christopher Marchand on 24/10/2019.
-//  Copyright © 2019 Christopher Marchand. All rights reserved.
+//  Created  on 24/10/2019.
+//  Copyright ©  All rights reserved.
 //
 
 import UIKit

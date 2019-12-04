@@ -80,7 +80,7 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell: TrackListViewCell = tableView.cellForRow(at: indexPath) as! TrackListViewCell
-       //Lag en alert "added to favorites"
+       
         saveEntityToCore(cell: selectedCell)
         
         
@@ -95,11 +95,15 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
         newFavorite.setValue(albumArtist.text!, forKey: "artist")
         newFavorite.setValue(cell.trackTitle.text!, forKey: "trackTitle")
         newFavorite.setValue(cell.trackDuration.text!, forKey: "trackDuration")
-        print(albumArtist.text!)
-        print(cell.trackTitle.text!)
-        print(cell.trackDuration.text!)
         
         (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        
+        let alertSaved = UIAlertController(title: "Nice choice!", message: "Song saved to favorites", preferredStyle: .alert)
+        present(alertSaved, animated: true) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                alertSaved.dismiss(animated: true, completion: nil)
+            }
+        }
     }
     
     
