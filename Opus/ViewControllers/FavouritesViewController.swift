@@ -9,17 +9,35 @@
 import UIKit
 import CoreData
 
-class FavouritesViewController: UITableViewController, NSFetchedResultsControllerDelegate {
+
+class FavouritesViewController: UITableViewController,UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate {
+  
+    
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+   
     
     //kontroller for database
     var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
    
     
     var allFavorites: [FavouriteTrack] = []
-    var reccomendedArtist: [Reccomended] = []
+    var reccomendedArtists = [Reccomended]() {
+        didSet {
+            DispatchQueue.main.async {
+                self.collectionView.reloadData()
+                for artist in self.reccomendedArtists {
+                    print(artist.name);
+                }
+            }
+        }
+    }
         
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         let favoriteNib = UINib(nibName: "FavoritesViewCell", bundle: nil)
         tableView.register(favoriteNib, forCellReuseIdentifier: "FavoritesViewCell")
@@ -41,8 +59,10 @@ class FavouritesViewController: UITableViewController, NSFetchedResultsControlle
         allFavorites = fetchedResultsController.fetchedObjects as! [FavouriteTrack]
         print("Entries in coreData",allFavorites.count)
         
+      
         getSimilarArtists(to: allFavorites)
-
+       
+        
         tableView.reloadData()
 
     
@@ -66,12 +86,20 @@ class FavouritesViewController: UITableViewController, NSFetchedResultsControlle
 
         return cell
     }
-
-
+    
    
+    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        
+    }
+    
 
-   
-   
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
 
@@ -91,6 +119,24 @@ class FavouritesViewController: UITableViewController, NSFetchedResultsControlle
                    }
         }
     }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return reccomendedArtists.count
+      }
+      
+      func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReccomendedCell", for: indexPath) as! ReccomendedCell
+        
+        let reccomendedArtist = reccomendedArtists[indexPath.row]
+        
+        cell.sizeToFit()
+        cell.layer.cornerRadius = 5
+        
+        cell.reccomendedArtistLbl.text = reccomendedArtist.name
+        
+        
+        return cell
+      }
 
     //funksjon som lytter til forandringer i core data database samt oppdaterer tableview deretter.
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
@@ -98,6 +144,10 @@ class FavouritesViewController: UITableViewController, NSFetchedResultsControlle
         allFavorites = fetchedResultsController.fetchedObjects as! [FavouriteTrack]
         getSimilarArtists(to: allFavorites)
         tableView.reloadData()
+        
+        if allFavorites.isEmpty {
+            self.reccomendedArtists = []
+        }
         
     }
     
@@ -112,14 +162,16 @@ class FavouritesViewController: UITableViewController, NSFetchedResultsControlle
        
         url.append(parameters)
         print(url)
-        
+        if !self.allFavorites.isEmpty{
         let reccomended = NetworkHandler(from: url)
         reccomended.getReccomended{ result in
         guard let result = result else {
             print("could not find reccomended")
             return
         }
-            self.reccomendedArtist = result.results
+            self.reccomendedArtists = result.results
+            print(self.reccomendedArtists[0].name)
+        }
         }
         
         //resets the url with no artist query
@@ -130,4 +182,6 @@ class FavouritesViewController: UITableViewController, NSFetchedResultsControlle
         }
     }
 }
+
+
 

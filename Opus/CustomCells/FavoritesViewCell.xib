@@ -49,6 +49,7 @@
                     <constraint firstAttribute="bottomMargin" secondItem="8QA-CE-w2W" secondAttribute="bottom" constant="1" id="wAa-Nu-ry8"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="artistName" destination="8QA-CE-w2W" id="Jhu-Je-gAF"/>
