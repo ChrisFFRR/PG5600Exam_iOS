@@ -16,6 +16,7 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UICollect
     @IBOutlet weak var collectionView: UICollectionView!
     
     var collectionViewFlowLayout: UICollectionViewFlowLayout!
+     let noResultLabel = UILabel(frame: CGRect(x:0,y: 0,width: 200, height: 30))
     
 
     let searchController = UISearchController(searchResultsController: nil)
@@ -54,30 +55,32 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UICollect
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Top 50 Albums"
+        searchController.searchBar.placeholder = "Search Artist"
         definesPresentationContext = true
         extendedLayoutIncludesOpaqueBars = true
         searchController.searchBar.barStyle = .black
         searchContainer.addSubview(searchController.searchBar)
+       
+        
+        
+    
         
       
     }
     
     override func viewWillLayoutSubviews() {
            if collectionViewFlowLayout == nil {
-               let numberOfItemsRow:  CGFloat = 2
-               let lineSpacing: CGFloat = 15
-               let interItemSpacing: CGFloat = 15
-               let width = (collectionView.frame.width - (numberOfItemsRow - 1) * interItemSpacing) / numberOfItemsRow
-               
+
+               let lineSpacing: CGFloat = 20
+               let interItemSpacing: CGFloat = 10
+               let width = collectionView.frame.width / 2
                collectionViewFlowLayout = UICollectionViewFlowLayout()
-               collectionViewFlowLayout.itemSize = CGSize(width: CGFloat(width), height: CGFloat(230))
+               collectionViewFlowLayout.itemSize = CGSize(width: CGFloat(width), height: CGFloat(230)) //230
                collectionViewFlowLayout.scrollDirection = .vertical
                collectionViewFlowLayout.minimumLineSpacing = lineSpacing
                collectionViewFlowLayout.minimumInteritemSpacing = interItemSpacing
                collectionViewFlowLayout.sectionInset.top = CGFloat(15)
-               
-               
+
                collectionView.setCollectionViewLayout(collectionViewFlowLayout, animated: true)
            }
        }
@@ -90,6 +93,9 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UICollect
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TopAlbumCell", for: indexPath) as! TopAlbumCell
         
         let albumDetail = filteredAlbums[indexPath.row]
+        
+        cell.contentView.layer.masksToBounds = true
+        cell.layer.cornerRadius = 10
         cell.albumArtist.text = albumDetail.strArtist
         cell.albumTitle.text = albumDetail.strAlbum
         
@@ -98,6 +104,16 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UICollect
         }
         
         return cell
+        }
+    
+     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+           let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
+           let albumDetailVC = storyboard.instantiateViewController(withIdentifier: "AlbumDetailViewController") as? AlbumDetailViewController
+           
+           let albumDetailData = filteredAlbums[indexPath.row]
+           
+           Utils.setUpAndShowModal(album: albumDetailData, albumDetailVC, senderVC: self)
+           
        }
     
     
@@ -106,22 +122,30 @@ class SearchViewController: UIViewController, UISearchResultsUpdating, UICollect
         filteredAlbums = albums.filter { (album: TopAlbum) -> Bool in
             return album.strArtist.lowercased().contains(input.lowercased())
         }
+        if(!isSearchBarEmpty && !filteredAlbums.isEmpty) {
+            noResultLabel.removeFromSuperview()
+
+                }
+        
         collectionView.reloadData()
     }
     
     func updateSearchResults(for searchController: UISearchController) {
         let searchBar = searchController.searchBar
         filterContextOnSearch(searchBar.text!)
+        
+           if(!isSearchBarEmpty && filteredAlbums.isEmpty) {
+            print(self.view.center.y)
+            print(self.view.center.x)
+            print(self.view.center)
+            noResultLabel.center.x = self.view.center.x
+            noResultLabel.center.y = self.view.center.y / 2
+            noResultLabel.textAlignment = .center
+           
+               noResultLabel.text = "Nothing to show"
+               noResultLabel.textColor = .white
+               self.collectionView.addSubview(noResultLabel);
+           }
+    
        }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

@@ -35,9 +35,10 @@ struct AlbumRoot: Decodable {
 }
 
 struct Album: Codable {
-    let strTrack, strDuration: String
+    let strArtist, strTrack, strDuration: String
   
     enum CodingKeys: String, CodingKey {
+        case strArtist
         case strTrack
         case strDuration = "intDuration"
     }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -76,6 +77,35 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedCell: TrackListViewCell = tableView.cellForRow(at: indexPath) as! TrackListViewCell
+       
+        saveEntityToCore(cell: selectedCell)
+        
+        
+    }
+    
+    private func saveEntityToCore(cell: TrackListViewCell) {
+       
+        let favoriteEntity = NSEntityDescription.entity(forEntityName: "FavouriteTrack", in: AppDelegate.context)
+        
+        let newFavorite = NSManagedObject(entity: favoriteEntity!, insertInto: AppDelegate.context)
+        
+        newFavorite.setValue(albumArtist.text!, forKey: "artist")
+        newFavorite.setValue(cell.trackTitle.text!, forKey: "trackTitle")
+        newFavorite.setValue(cell.trackDuration.text!, forKey: "trackDuration")
+        
+        (UIApplication.shared.delegate as! AppDelegate).saveContext()
+        
+        let alertSaved = UIAlertController(title: "Nice choice!", message: "Song saved to favorites", preferredStyle: .alert)
+        present(alertSaved, animated: true) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                alertSaved.dismiss(animated: true, completion: nil)
+            }
+        }
+    }
+    
     
     private func convertFromStringToCorrectTime(from stringDur: String) -> String {
         let timeInt = NSInteger(stringDur)

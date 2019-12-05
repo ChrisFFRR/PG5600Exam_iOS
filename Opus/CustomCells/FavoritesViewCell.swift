@@ -1,19 +1,18 @@
 //
-//  TopAlbumListViewCell.swift
+//  FavoritesViewCell.swift
 //  Opus
 //
-//  Created  on 24/10/2019.
-//  Copyright ©  All rights reserved.
+//  Created  on 03/12/2019.
+//  Copyright © All rights reserved.
 //
 
 import UIKit
 
-class TopAlbumListViewCell: UITableViewCell {
+class FavoritesViewCell: UITableViewCell {
 
-    @IBOutlet weak var albumImage: UIImageView!
-    @IBOutlet weak var albumTitle: UILabel!
+    @IBOutlet weak var trackTitle: UILabel!
     @IBOutlet weak var artistName: UILabel!
-   
+    @IBOutlet weak var trackDuration: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -22,7 +21,8 @@ class TopAlbumListViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
+
         // Configure the view for the selected state
     }
+    
 }

@@ -17,6 +17,11 @@
 		478621D92361949C0064BBC7 /* TopAlbumListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478621D72361949C0064BBC7 /* TopAlbumListViewCell.swift */; };
 		478621DA2361949C0064BBC7 /* TopAlbumListViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 478621D82361949C0064BBC7 /* TopAlbumListViewCell.xib */; };
 		478621DE236211BB0064BBC7 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 478621DD236211BB0064BBC7 /* SearchViewController.swift */; };
+		47864E992396BE8800647B2B /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47864E972396BE8800647B2B /* FavouritesViewController.swift */; };
+		47864E9D2396CFE300647B2B /* FavoritesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47864E9B2396CFE300647B2B /* FavoritesViewCell.swift */; };
+		47864E9E2396CFE300647B2B /* FavoritesViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 47864E9C2396CFE300647B2B /* FavoritesViewCell.xib */; };
+		47864EA0239928DD00647B2B /* ReccomendedArtist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47864E9F239928DD00647B2B /* ReccomendedArtist.swift */; };
+		47864EA2239947B400647B2B /* ReccomendedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47864EA1239947B400647B2B /* ReccomendedCell.swift */; };
 		47A04EB2235F32800089ED34 /* Top50AlbumsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A04EB1235F32800089ED34 /* Top50AlbumsListViewController.swift */; };
 		47A04EB4235F33970089ED34 /* Top50AlbumsMasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47A04EB3235F33970089ED34 /* Top50AlbumsMasterViewController.swift */; };
 		47C39014234F376E0092D6A9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C39013234F376E0092D6A9 /* AppDelegate.swift */; };
@@ -27,7 +32,6 @@
 		47C39023234F37760092D6A9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 47C39021234F37760092D6A9 /* LaunchScreen.storyboard */; };
 		47C3902E234F37760092D6A9 /* OpusTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C3902D234F37760092D6A9 /* OpusTests.swift */; };
 		47C39039234F37760092D6A9 /* OpusUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47C39038234F37760092D6A9 /* OpusUITests.swift */; };
-		47F1163A23563B25008A1E47 /* ApiEndpoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F1163923563B25008A1E47 /* ApiEndpoints.swift */; };
 		47F1163C235657FE008A1E47 /* AlbumDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47F1163B235657FE008A1E47 /* AlbumDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -59,6 +63,11 @@
 		478621D72361949C0064BBC7 /* TopAlbumListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAlbumListViewCell.swift; sourceTree = "<group>"; };
 		478621D82361949C0064BBC7 /* TopAlbumListViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TopAlbumListViewCell.xib; sourceTree = "<group>"; };
 		478621DD236211BB0064BBC7 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		47864E972396BE8800647B2B /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
+		47864E9B2396CFE300647B2B /* FavoritesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewCell.swift; sourceTree = "<group>"; };
+		47864E9C2396CFE300647B2B /* FavoritesViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FavoritesViewCell.xib; sourceTree = "<group>"; };
+		47864E9F239928DD00647B2B /* ReccomendedArtist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReccomendedArtist.swift; sourceTree = "<group>"; };
+		47864EA1239947B400647B2B /* ReccomendedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReccomendedCell.swift; sourceTree = "<group>"; };
 		47A04EB1235F32800089ED34 /* Top50AlbumsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top50AlbumsListViewController.swift; sourceTree = "<group>"; };
 		47A04EB3235F33970089ED34 /* Top50AlbumsMasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Top50AlbumsMasterViewController.swift; sourceTree = "<group>"; };
 		47C39010234F376E0092D6A9 /* Opus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Opus.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,7 +84,6 @@
 		47C39034234F37760092D6A9 /* OpusUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OpusUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		47C39038234F37760092D6A9 /* OpusUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpusUITests.swift; sourceTree = "<group>"; };
 		47C3903A234F37760092D6A9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		47F1163923563B25008A1E47 /* ApiEndpoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiEndpoints.swift; sourceTree = "<group>"; };
 		47F1163B235657FE008A1E47 /* AlbumDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -125,7 +133,6 @@
 			isa = PBXGroup;
 			children = (
 				471B87E02352249A002995DB /* NetworkHandler.swift */,
-				47F1163923563B25008A1E47 /* ApiEndpoints.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -139,6 +146,9 @@
 				47377C442360907D004D594F /* TrackListViewCell.xib */,
 				478621D72361949C0064BBC7 /* TopAlbumListViewCell.swift */,
 				478621D82361949C0064BBC7 /* TopAlbumListViewCell.xib */,
+				47864E9B2396CFE300647B2B /* FavoritesViewCell.swift */,
+				47864E9C2396CFE300647B2B /* FavoritesViewCell.xib */,
+				47864EA1239947B400647B2B /* ReccomendedCell.swift */,
 			);
 			path = CustomCells;
 			sourceTree = "<group>";
@@ -206,6 +216,7 @@
 				47A04EB1235F32800089ED34 /* Top50AlbumsListViewController.swift */,
 				47A04EB3235F33970089ED34 /* Top50AlbumsMasterViewController.swift */,
 				478621DD236211BB0064BBC7 /* SearchViewController.swift */,
+				47864E972396BE8800647B2B /* FavouritesViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -214,6 +225,7 @@
 			isa = PBXGroup;
 			children = (
 				471B87DE2352226B002995DB /* Artist.swift */,
+				47864E9F239928DD00647B2B /* ReccomendedArtist.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -327,6 +339,7 @@
 				478621DA2361949C0064BBC7 /* TopAlbumListViewCell.xib in Resources */,
 				47C39020234F37750092D6A9 /* Assets.xcassets in Resources */,
 				4744728F235B218D005C8055 /* TopAlbumCell.xib in Resources */,
+				47864E9E2396CFE300647B2B /* FavoritesViewCell.xib in Resources */,
 				47C3901B234F376E0092D6A9 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,16 +365,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47864E9D2396CFE300647B2B /* FavoritesViewCell.swift in Sources */,
 				47A04EB2235F32800089ED34 /* Top50AlbumsListViewController.swift in Sources */,
+				47864EA0239928DD00647B2B /* ReccomendedArtist.swift in Sources */,
 				478621D92361949C0064BBC7 /* TopAlbumListViewCell.swift in Sources */,
 				47C3901E234F376E0092D6A9 /* Opus.xcdatamodeld in Sources */,
+				47864E992396BE8800647B2B /* FavouritesViewController.swift in Sources */,
 				471B87DB2352052E002995DB /* Top50AlbumsViewController.swift in Sources */,
-				47F1163A23563B25008A1E47 /* ApiEndpoints.swift in Sources */,
 				47C39014234F376E0092D6A9 /* AppDelegate.swift in Sources */,
 				47F1163C235657FE008A1E47 /* AlbumDetailViewController.swift in Sources */,
 				47C39016234F376E0092D6A9 /* SceneDelegate.swift in Sources */,
 				478621DE236211BB0064BBC7 /* SearchViewController.swift in Sources */,
 				471B87E12352249A002995DB /* NetworkHandler.swift in Sources */,
+				47864EA2239947B400647B2B /* ReccomendedCell.swift in Sources */,
 				47377C452360907D004D594F /* TrackListViewCell.swift in Sources */,
 				47A04EB4235F33970089ED34 /* Top50AlbumsMasterViewController.swift in Sources */,
 				4744728E235B218D005C8055 /* TopAlbumCell.swift in Sources */,

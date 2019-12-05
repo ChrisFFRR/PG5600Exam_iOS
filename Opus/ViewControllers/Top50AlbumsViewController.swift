@@ -2,8 +2,8 @@
 //  Top50AlbumsViewController.swift
 //  Opus
 //
-//  Created by Christopher Marchand on 12/10/2019.
-//  Copyright © 2019 Christopher Marchand. All rights reserved.
+//  Created on 12/10/2019.
+//  Copyright © 2019 All rights reserved.
 //
 
 import UIKit
@@ -13,7 +13,7 @@ import UIKit
 
 class Top50AlbumsViewController: UICollectionViewController {
     
-    var masterVc = Top50AlbumsMasterViewController()
+    //var masterVc = Top50AlbumsMasterViewController()
     
     var topAlbumList = [TopAlbum]() {
         didSet {
@@ -38,27 +38,27 @@ class Top50AlbumsViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        masterVc.delegate = self
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.masterVc.sendAlbumsToVc()
-        }
-        
+//        masterVc.delegate = self
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+//            self.masterVc.sendAlbumsToVc()
+//        }
+//
         
         
         //register topalbum cell
         let topAlbumNib = UINib(nibName: "TopAlbumCell", bundle: nil)
         collectionView.register(topAlbumNib, forCellWithReuseIdentifier: "TopAlbumCell")
 
-//        DispatchQueue.global(qos: .background).async {
-//            let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
-//            topAlbums.getTopAlbums { [weak self] result in
-//                guard let result = result else {
-//                    print("Could not fetch Albums")
-//                    return
-//                }
-//                self?.topAlbumList = result
-//            }
-//        }
+        DispatchQueue.global(qos: .background).async {
+            let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
+            topAlbums.getTopAlbums { [weak self] result in
+                guard let result = result else {
+                    print("Could not fetch Albums")
+                    return
+                }
+                self?.topAlbumList = result
+            }
+        }
     }
     override func viewWillLayoutSubviews() {
         if collectionViewFlowLayout == nil {
@@ -94,7 +94,6 @@ class Top50AlbumsViewController: UICollectionViewController {
         
         let album = topAlbumList[indexPath.row]
         
-        // Add rounded corners
         cell.contentView.layer.masksToBounds = true
         cell.layer.cornerRadius = 10
         
@@ -120,33 +119,21 @@ class Top50AlbumsViewController: UICollectionViewController {
     
 }
 
-extension Top50AlbumsViewController: AlbumDelegate {
-    func didSendAlbums(_ albums: [TopAlbum]) {
-        if albums.count > 0 {
-        self.topAlbumList = albums.map({$0})
-        print("Receiving from delegate: \(albums.count)")
-        //self.navigationItem.title = "Top \(self.allAlbums.count) Albums"
-        } else {
-            print("Did not receive anything from delegate")
-        }
-        
-    }
-}
+//extension Top50AlbumsViewController: AlbumDelegate {
+//    func didSendAlbums(_ albums: [TopAlbum]) {
+//        if albums.count > 0 {
+//        self.topAlbumList = albums.map({$0})
+//        print("Receiving from delegate: \(albums.count)")
+//        //self.navigationItem.title = "Top \(self.allAlbums.count) Albums"
+//        } else {
+//            print("Did not receive anything from delegate")
+//        }
+//
+//    }
+//}
 
 class Utils {
     
-    /*
-    static func convertStrToUIImage(_ albumUrl: String) -> UIImage {
-        let imageUrl = URL(string: albumUrl)
-        
-        if let data = try? Data(contentsOf: imageUrl!) {
-            let image: UIImage = UIImage(data: data)!
-            return image
-        } else {
-            fatalError()
-        }
-    }
- */
     
     static func convertStrToUIImage(_ albumUrl: String, completion: @escaping(UIImage) -> Void) {
         let imageUrl = URL(string: albumUrl)
@@ -178,4 +165,3 @@ class Utils {
       }
 }
 
-// Delete all delegate references if you cant get it to work!!!!
