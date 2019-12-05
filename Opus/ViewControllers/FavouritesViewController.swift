@@ -16,6 +16,7 @@ class FavouritesViewController: UITableViewController, NSFetchedResultsControlle
    
     
     var allFavorites: [FavouriteTrack] = []
+    var reccomendedArtist: [Reccomended] = []
         
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class FavouritesViewController: UITableViewController, NSFetchedResultsControlle
         let favoriteNib = UINib(nibName: "FavoritesViewCell", bundle: nil)
         tableView.register(favoriteNib, forCellReuseIdentifier: "FavoritesViewCell")
         
+        //Udemy course iOS12 bootcamp
         //her henter vi entitiet fra database og sorterer etter artist (a-å)
         let fetchRequest =  NSFetchRequest<NSFetchRequestResult>(entityName: "FavouriteTrack")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "artist", ascending: true)]
@@ -38,15 +40,14 @@ class FavouritesViewController: UITableViewController, NSFetchedResultsControlle
         
         allFavorites = fetchedResultsController.fetchedObjects as! [FavouriteTrack]
         print("Entries in coreData",allFavorites.count)
+        
+        getSimilarArtists(to: allFavorites)
 
         tableView.reloadData()
 
     
          self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
-    // MARK: - Table view data source
-
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allFavorites.count
@@ -95,8 +96,38 @@ class FavouritesViewController: UITableViewController, NSFetchedResultsControlle
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         print("Change in db")
         allFavorites = fetchedResultsController.fetchedObjects as! [FavouriteTrack]
+        getSimilarArtists(to: allFavorites)
         tableView.reloadData()
         
     }
     
+    func getSimilarArtists(to artists: [FavouriteTrack]) {
+        // API key limited to 300 request an hour
+        var url = "https://tastedive.com/api/similar?type=music&limit=10&k=350796-OPUSexam-HCD3DNWH&q="
+       
+        let likedArtist = artists.map({$0.artist!})
+ 
+        let uniqueArtists = Array(Set(likedArtist)).joined(separator: ",")
+        let parameters = uniqueArtists.replacingOccurrences(of: ",", with: "%2C").replacingOccurrences(of: " ", with: "+")
+       
+        url.append(parameters)
+        print(url)
+        
+        let reccomended = NetworkHandler(from: url)
+        reccomended.getReccomended{ result in
+        guard let result = result else {
+            print("could not find reccomended")
+            return
+        }
+            self.reccomendedArtist = result.results
+        }
+        
+        //resets the url with no artist query
+        //https://stackoverflow.com/a/39185097
+        if let index = url.range(of: "q=")?.upperBound {
+            let substring = url[..<index]
+            url = String(substring)
+        }
+    }
 }
+

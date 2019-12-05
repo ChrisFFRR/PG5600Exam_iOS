@@ -71,4 +71,20 @@ class NetworkHandler {
             }
         }
     }
-}
+    
+    func getReccomended(completion: @escaping (Similar?) -> Void) {
+         load(url: resourceURL) { data in
+                   guard let jsonData = data else {
+                       completion(nil)
+                       return
+                   }
+           
+                   do {
+                       let reccomendedResp = try JSONDecoder().decode(ReccomendedRoot.self, from: jsonData)
+                    completion(reccomendedResp.similar)
+                   } catch let err as NSError {
+                       fatalError(err.localizedDescription)
+                   }
+               }
+           }
+    }
