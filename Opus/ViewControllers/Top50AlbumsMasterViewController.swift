@@ -15,15 +15,8 @@ import UIKit
 class Top50AlbumsMasterViewController: UIViewController {
     
     /*
-     For å implementere segmented controll, tenkte jeg at jeg kunne ha en Master viewcontroller som sendte topalbums til "topalbumGridVC" og "topalbumListVC" ved å lazyloade grid og liste viewcontrollerene for å minimere nettverkskall til bare denne viewcontrolleren.
+     Please read readme.md for assigment 3
      
-     Jeg støtte på et problem/bug som gjorde at programflyten gjorde at lazyloadingen ble instansiert før masterGridViewcontroller (denne klassen), og endte opp med å ikke kunne vise noen album, siden TotalAlbums ble populert etter at grid viewcontroller var lastet inn.
-     
-     Det ble også et problem hvis man trykket på segmented controller mens nettverkskallet kjørte.
-     
-     Jeg endte derfor opp med å implementere nettverkskall i hver viewcontroller for å unngå denne buggen da jeg ikke fant ut hvordan jeg kunne løse dette problemet.
-     
-     Jeg forsøkte å lage et  delegat, og en "hack" for å utsette sending av objektene til viewcontroller som jeg har latt være i koden (kommentert bort) for å vise tankegangen, da jeg brukte en del tid på det.
      */
     
     
