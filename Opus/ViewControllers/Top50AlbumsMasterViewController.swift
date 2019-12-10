@@ -8,15 +8,15 @@
 
 import UIKit
 
-protocol AlbumDelegate {
-    func didSendAlbums(_ albums: [TopAlbum])
-}
+//protocol AlbumDelegate {
+//    func didSendAlbums(_ albums: [Album])
+//}
 
 class Top50AlbumsMasterViewController: UIViewController {
-   
-/*
-      For å implementere segmented controll, tenkte jeg at jeg kunne ha en Master viewcontroller som sendte topalbums til "topalbumGridVC" og "topalbumListVC" ved å lazyloade grid og liste viewcontrollerene for å minimere nettverkskall til bare denne viewcontrolleren.
     
+    /*
+     For å implementere segmented controll, tenkte jeg at jeg kunne ha en Master viewcontroller som sendte topalbums til "topalbumGridVC" og "topalbumListVC" ved å lazyloade grid og liste viewcontrollerene for å minimere nettverkskall til bare denne viewcontrolleren.
+     
      Jeg støtte på et problem/bug som gjorde at programflyten gjorde at lazyloadingen ble instansiert før masterGridViewcontroller (denne klassen), og endte opp med å ikke kunne vise noen album, siden TotalAlbums ble populert etter at grid viewcontroller var lastet inn.
      
      Det ble også et problem hvis man trykket på segmented controller mens nettverkskallet kjørte.
@@ -27,11 +27,10 @@ class Top50AlbumsMasterViewController: UIViewController {
      */
     
     
-//     var delegate: AlbumDelegate?
+    //     var delegate: AlbumDelegate?
     
-    var totalAlbums = [TopAlbum]() {
+    var totalAlbums = [Album]() {
         didSet {
-            print("Total albums in mvc = \(totalAlbums.count)")
             DispatchQueue.main.async {
                 self.navigationItem.title = "Top \(self.totalAlbums.count) Albums"
                 
@@ -41,18 +40,18 @@ class Top50AlbumsMasterViewController: UIViewController {
     
     @IBOutlet var segmentedController: UISegmentedControl!
     
-
+    
     private lazy var topAlbumsGridVc: Top50AlbumsViewController = {
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let vc = storyboard.instantiateViewController(withIdentifier: "Top50AlbumsViewController") as! Top50AlbumsViewController
- 
+        
         
         /*
          Denne "hacken" løste problemet med visning av album med delegat, men
-
+         
          DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-          vc.topAlbumList = self.totalAlbums.map({$0})
-          print("Lazy loaded: " , vc.topAlbumList.count)
+         vc.topAlbumList = self.totalAlbums.map({$0})
+         print("Lazy loaded: " , vc.topAlbumList.count)
          }
          */
         
@@ -61,28 +60,28 @@ class Top50AlbumsMasterViewController: UIViewController {
     }()
     
     private lazy var topAlbumsListVc: Top50AlbumsListViewController = {
-           let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
-           let vc = storyboard.instantiateViewController(withIdentifier: "Top50AlbumsListViewController") as! Top50AlbumsListViewController
+        let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
+        let vc = storyboard.instantiateViewController(withIdentifier: "Top50AlbumsListViewController") as! Top50AlbumsListViewController
         
-           vc.totalAlbums = self.totalAlbums.map({$0})
-           self.addViewControllerAsChild(childVc: vc)
-           
-           return vc
-       }()
-
+        vc.totalAlbums = self.totalAlbums.map({$0})
+        self.addViewControllerAsChild(childVc: vc)
+        
+        return vc
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
-    
-            topAlbums.getTopAlbums { [weak self] result in
-                guard let result = result else {
-                    print("Could not fetch Albums")
-                    return
-                }
-                  self?.totalAlbums = result
+        
+        topAlbums.getTopAlbums { [weak self] result in
+            guard let result = result else {
+                print("Could not fetch Albums")
+                return
             }
-    
+            self?.totalAlbums = result
+        }
+        
         navigationItem.title = "Loading"
         
         self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Scroll to top", style: .done, target: self, action: #selector(scrollToTop(_:)))
@@ -92,18 +91,18 @@ class Top50AlbumsMasterViewController: UIViewController {
         segmentedController.addTarget(self, action: #selector(selectionDidChange(sender:)), for: .valueChanged)
     }
     
-//    func sendAlbumsToVc() {
-//        let albumsToSend = self.totalAlbums.map({$0})
-//        print(albumsToSend.count)
-//        if let delegate = self.delegate {
-//            delegate.didSendAlbums(self.totalAlbums)
-//            print("sending from mastervc: \(self.secondAlbums.count)")
-//        } else {
-//            print("Delegate not implemented correctly")
-//        }
-//    }
-       
-
+    //    func sendAlbumsToVc() {
+    //        let albumsToSend = self.totalAlbums.map({$0})
+    //        print(albumsToSend.count)
+    //        if let delegate = self.delegate {
+    //            delegate.didSendAlbums(self.totalAlbums)
+    //            print("sending from mastervc: \(self.secondAlbums.count)")
+    //        } else {
+    //            print("Delegate not implemented correctly")
+    //        }
+    //    }
+    
+    
     //https://www.youtube.com/watch?v=kq-lHR5ZOW0
     @objc func selectionDidChange(sender: UISegmentedControl) {
         topAlbumsGridVc.view.isHidden = !(segmentedController.selectedSegmentIndex == 0)
@@ -112,12 +111,12 @@ class Top50AlbumsMasterViewController: UIViewController {
     
     private func addViewControllerAsChild(childVc: UIViewController) {
         addChild(childVc)
-     
+        
         view.addSubview(childVc.view)
         
         childVc.view.frame = view.bounds
         childVc.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    
+        
         childVc.didMove(toParent: self)
     }
     
@@ -127,7 +126,7 @@ class Top50AlbumsMasterViewController: UIViewController {
             topAlbumsListVc.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
     }
-   
+    
 }
 
 

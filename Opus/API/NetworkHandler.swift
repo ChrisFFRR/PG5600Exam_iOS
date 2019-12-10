@@ -40,7 +40,7 @@ class NetworkHandler {
     }
     
     
-    func getTopAlbums(completion: @escaping ([TopAlbum]?) -> Void) {
+    func getTopAlbums(completion: @escaping ([Album]?) -> Void) {
         load(url: resourceURL) { data in
             guard let jsonData = data else {
                 completion(nil)
@@ -64,8 +64,8 @@ class NetworkHandler {
             }
             
             do {
-                let topAlbumResp = try JSONDecoder().decode(AlbumRoot.self, from: jsonData)
-                completion(topAlbumResp.album)
+                let topAlbumResp = try JSONDecoder().decode(AlbumTracksRoot.self, from: jsonData)
+                completion(topAlbumResp.albumTracks)
             } catch let err as NSError {
                 fatalError(err.localizedDescription)
             }
@@ -87,4 +87,21 @@ class NetworkHandler {
                    }
                }
            }
+    
+    func getAlbumByTitle(completion: @escaping ([Album]?) -> Void) {
+        load(url: resourceURL) { data in
+            guard let jsonData = data else {
+                completion(nil)
+                return
+            }
+            do {
+        
+                let albumTitleResp = try JSONDecoder().decode(AlbumWTitleRoot.self, from: jsonData)
+                completion(albumTitleResp.album)
+            } catch {
+              completion(nil)
+            }
+            
+        }
     }
+}

@@ -15,7 +15,7 @@ class Top50AlbumsViewController: UICollectionViewController {
     
     //var masterVc = Top50AlbumsMasterViewController()
     
-    var topAlbumList = [TopAlbum]() {
+    var topAlbumList = [Album]() {
         didSet {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
@@ -23,32 +23,24 @@ class Top50AlbumsViewController: UICollectionViewController {
         }
     }
     
-//    var topAlbumList = [TopAlbum]() {
-//        didSet {
-//            DispatchQueue.main.async {
-//                self.collectionView.reloadData()
-//                print("Total albums in GridVC!!!! = \(self.topAlbumList.count)")
-//                print("Total allAlbums = \(self.allAlbums.count)")
-//            }
-//        }
-//    }
+    
     var collectionViewFlowLayout:  UICollectionViewFlowLayout!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        masterVc.delegate = self
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
-//            self.masterVc.sendAlbumsToVc()
-//        }
-//
+        //        masterVc.delegate = self
+        //        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+        //            self.masterVc.sendAlbumsToVc()
+        //        }
+        //
         
         
         //register topalbum cell
         let topAlbumNib = UINib(nibName: "TopAlbumCell", bundle: nil)
         collectionView.register(topAlbumNib, forCellWithReuseIdentifier: "TopAlbumCell")
-
+        
         DispatchQueue.global(qos: .background).async {
             let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
             topAlbums.getTopAlbums { [weak self] result in
@@ -79,10 +71,10 @@ class Top50AlbumsViewController: UICollectionViewController {
         }
     }
     
-
-
+    
+    
     // MARK: UICollectionViewDataSource
-
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return topAlbumList.count
     }
@@ -98,11 +90,11 @@ class Top50AlbumsViewController: UICollectionViewController {
         cell.layer.cornerRadius = 10
         
         Utils.convertStrToUIImage(album.strAlbumThumb) { uiImage in
-                cell.albumImage.image = uiImage
+            cell.albumImage.image = uiImage
         }
         cell.albumArtist.text = album.strArtist
         cell.albumTitle.text = album.strAlbum
-                 
+        
         return cell
     }
     
@@ -136,32 +128,42 @@ class Utils {
     
     
     static func convertStrToUIImage(_ albumUrl: String, completion: @escaping(UIImage) -> Void) {
-        let imageUrl = URL(string: albumUrl)
+        let imageUrl: URL
+        
+        /*Some of the albums returns nil while others returns empty string from API
+         i need to check if the string is empty since it only checks for NIL in decodable struct
+         */
+        if(albumUrl == "") {
+            imageUrl = URL(string: "https://biturl.top/y6fMje")!
+        } else {
+            imageUrl = URL(string: albumUrl)!
+        }
         DispatchQueue.global(qos: .background).async {
-           if let data = try? Data(contentsOf: imageUrl!) {
-            let image: UIImage = UIImage(data: data)!
-            DispatchQueue.main.async {
-                completion(image)
-            }
-           } else {
-            fatalError()
+            if let data = try? Data(contentsOf: imageUrl) {
+                let image: UIImage = UIImage(data: data)!
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            } else {
+                fatalError()
             }
         }
     }
     
-    static func setUpAndShowModal( album: TopAlbum, _ albumDetailVC: AlbumDetailViewController?, senderVC: UIViewController) {
-         
-          albumDetailVC?.albumImageStr = album.strAlbumThumb
-          albumDetailVC?.albumTitleData = album.strAlbum
-          albumDetailVC?.albumArtistData = album.strArtist
-          albumDetailVC?.albumIdString = album.idAlbum
-          
-          
-          let navController = UINavigationController(rootViewController: albumDetailVC!)
-          navController.setNavigationBarHidden( true, animated: true)
-          senderVC.present(navController, animated: true)
+    static func setUpAndShowModal( album: Album, _ albumDetailVC: AlbumDetailViewController?, senderVC: UIViewController) {
         
-         
-      }
+        albumDetailVC?.albumImageStr = album.strAlbumThumb
+        albumDetailVC?.albumTitleData = album.strAlbum
+        albumDetailVC?.albumArtistData = album.strArtist
+        albumDetailVC?.albumIdString = album.idAlbum
+        albumDetailVC?.albumRelData = album.intYearReleased
+        
+        
+        let navController = UINavigationController(rootViewController: albumDetailVC!)
+        navController.setNavigationBarHidden( true, animated: true)
+        senderVC.present(navController, animated: true)
+        
+        
+    }
 }
 
