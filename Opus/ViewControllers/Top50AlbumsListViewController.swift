@@ -9,38 +9,35 @@
 import UIKit
 
 class Top50AlbumsListViewController: UITableViewController{
-   
-  
-    var totalAlbums: [TopAlbum] = []
-   
+    
+    
+    var totalAlbums: [Album] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        
-        print("Total albums in ListVC \(totalAlbums.count)")
-        
-        
         let topAlbumNib = UINib(nibName: "TopAlbumListViewCell", bundle: nil)
         tableView.register(topAlbumNib, forCellReuseIdentifier: "TopAlbumListViewCell")
         
         let topAlbums = NetworkHandler(from: "https://theaudiodb.com/api/v1/json/1/mostloved.php?format=album")
         
-                topAlbums.getTopAlbums { [weak self] result in
-                    guard let result = result else {
-                        print("Could not fetch Albums")
-                        return
-                    }
-                      self?.totalAlbums = result
-                  
-                }
-    
+        topAlbums.getTopAlbums { [weak self] result in
+            guard let result = result else {
+                print("Could not fetch Albums")
+                return
+            }
+            self?.totalAlbums = result
+            
+        }
+        
         
         tableView.reloadData()
         
     }
     
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         return totalAlbums.count
-     }
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return totalAlbums.count
+    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TopAlbumListViewCell", for: indexPath) as? TopAlbumListViewCell else {
@@ -55,12 +52,12 @@ class Top50AlbumsListViewController: UITableViewController{
         
         let album = totalAlbums[indexPath.row]
         
-         Utils.convertStrToUIImage(album.strAlbumThumb) { uiImage in
-
-                    cell.albumImage.image = uiImage
-                }
-              
+        Utils.convertStrToUIImage(album.strAlbumThumb) { uiImage in
             
+            cell.albumImage.image = uiImage
+        }
+        
+        
         cell.albumTitle.text = album.strAlbum
         cell.artistName.text = album.strArtist
         
@@ -68,7 +65,7 @@ class Top50AlbumsListViewController: UITableViewController{
         return cell
     }
     
-  
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let storyboard = UIStoryboard.init(name: "Main", bundle: nil)
@@ -78,9 +75,9 @@ class Top50AlbumsListViewController: UITableViewController{
         
         
         Utils.setUpAndShowModal(album: albumDetailData, albumDetailVC, senderVC: self)
-   
+        
     }
-  
-
+    
+    
 }
 

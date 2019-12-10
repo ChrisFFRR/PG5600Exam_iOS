@@ -11,28 +11,25 @@ import CoreData
 
 
 class FavouritesViewController: UITableViewController,UICollectionViewDataSource, UICollectionViewDelegate, NSFetchedResultsControllerDelegate {
-  
+    
     
     
     @IBOutlet weak var collectionView: UICollectionView!
-   
+    
     
     //kontroller for database
     var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult>!
-   
+    
     
     var allFavorites: [FavouriteTrack] = []
     var reccomendedArtists = [Reccomended]() {
         didSet {
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
-                for artist in self.reccomendedArtists {
-                    print(artist.name);
-                }
             }
         }
     }
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,42 +49,40 @@ class FavouritesViewController: UITableViewController,UICollectionViewDataSource
         
         do {
             try fetchedResultsController.performFetch()
-            } catch {
+        } catch {
             print(error.localizedDescription)
         }
         
         allFavorites = fetchedResultsController.fetchedObjects as! [FavouriteTrack]
-        print("Entries in coreData",allFavorites.count)
         
-      
         getSimilarArtists(to: allFavorites)
-       
+        
         
         tableView.reloadData()
-
-    
-         self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        
+        self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return allFavorites.count
     }
-
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "FavoritesViewCell", for: indexPath) as? FavoritesViewCell else {
             fatalError("unable to dequeue FavoritesViewCell")
         }
         let favourite = allFavorites[indexPath.row]
-
+        
         cell.artistName.text = favourite.artist
         cell.trackTitle.text = favourite.trackTitle
         cell.trackDuration.text = favourite.trackDuration
-
+        
         return cell
     }
     
-   
+    
     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -99,33 +94,33 @@ class FavouritesViewController: UITableViewController,UICollectionViewDataSource
         
     }
     
-
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-
+            
             //Sletter valgt favoritt track fra database
             let favoriteToDelete = fetchedResultsController.object(at: indexPath) as! FavouriteTrack
             AppDelegate.context.delete(favoriteToDelete)
             (UIApplication.shared.delegate as! AppDelegate).saveContext()
             
-          
+            
             tableView.reloadData()
             
             let alertDeleted = UIAlertController(title: "Tired of the song?!", message: "Song deleted", preferredStyle: .alert)
-                   present(alertDeleted, animated: true) {
-                       DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                           alertDeleted.dismiss(animated: true, completion: nil)
-                       }
-                   }
+            present(alertDeleted, animated: true) {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    alertDeleted.dismiss(animated: true, completion: nil)
+                }
+            }
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return reccomendedArtists.count
-      }
-      
-      func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReccomendedCell", for: indexPath) as! ReccomendedCell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReccomendedCell", for: indexPath) as! ReccomendedCell
         
         let reccomendedArtist = reccomendedArtists[indexPath.row]
         
@@ -136,8 +131,8 @@ class FavouritesViewController: UITableViewController,UICollectionViewDataSource
         
         
         return cell
-      }
-
+    }
+    
     //funksjon som lytter til forandringer i core data database samt oppdaterer tableview deretter.
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         print("Change in db")
@@ -154,24 +149,24 @@ class FavouritesViewController: UITableViewController,UICollectionViewDataSource
     func getSimilarArtists(to artists: [FavouriteTrack]) {
         // API key limited to 300 request an hour
         var url = "https://tastedive.com/api/similar?type=music&limit=10&k=350796-OPUSexam-HCD3DNWH&q="
-       
+        
         let likedArtist = artists.map({$0.artist!})
- 
+        
         let uniqueArtists = Array(Set(likedArtist)).joined(separator: ",")
         let parameters = uniqueArtists.replacingOccurrences(of: ",", with: "%2C").replacingOccurrences(of: " ", with: "+")
-       
+        
         url.append(parameters)
         print(url)
         if !self.allFavorites.isEmpty{
-        let reccomended = NetworkHandler(from: url)
-        reccomended.getReccomended{ result in
-        guard let result = result else {
-            print("could not find reccomended")
-            return
-        }
-            self.reccomendedArtists = result.results
-            print(self.reccomendedArtists[0].name)
-        }
+            let reccomended = NetworkHandler(from: url)
+            reccomended.getReccomended{ result in
+                guard let result = result else {
+                    print("could not find reccomended")
+                    return
+                }
+                self.reccomendedArtists = result.results
+                
+            }
         }
         
         //resets the url with no artist query

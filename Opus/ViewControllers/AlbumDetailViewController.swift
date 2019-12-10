@@ -10,13 +10,14 @@ import UIKit
 import CoreData
 
 class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+    
     
     @IBOutlet weak var albumImage: UIImageView!
-       @IBOutlet weak var albumTitle: UILabel!
-       @IBOutlet weak var albumArtist: UILabel!
-       @IBOutlet weak var trackContainer: UITableView!
-   
+    @IBOutlet weak var albumTitle: UILabel!
+    @IBOutlet weak var albumArtist: UILabel!
+    @IBOutlet weak var albumYearRel: UILabel!
+    @IBOutlet weak var trackContainer: UITableView!
+    
     
     var albumTracks = [Album]() {
         didSet{
@@ -25,19 +26,20 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
             }
         }
     }
-
+    
     var albumImageStr = ""
     var albumTitleData = ""
     var albumArtistData = ""
     var albumIdString = ""
-   
+    var albumRelData = ""
+    
     
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
+        
         //register trackListCell
         let trackInfoNib = UINib(nibName: "TrackListViewCell", bundle: nil)
         trackContainer.register(trackInfoNib, forCellReuseIdentifier: "TrackListViewCell")
@@ -45,22 +47,24 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
         trackContainer.dataSource = self
         
         trackContainer.layer.cornerRadius = 10
-
+        
         Utils.convertStrToUIImage(albumImageStr){ albumCover in
             self.albumImage.image = albumCover
         }
-
+        
         albumTitle.text = albumTitleData
         albumArtist.text = albumArtistData
+        albumYearRel.text = albumRelData
         
-      
-            let albumIntID = Int(self.albumIdString)
-            
-            let albumTracks = NetworkHandler( from: "https://theaudiodb.com/api/v1/json/1/track.php?m=\(albumIntID!)")
-            
-            albumTracks.getAlbumTracks { [weak self] result in
-                self?.albumTracks = result!
-            }
+        
+        
+        let albumIntID = Int(self.albumIdString)
+        
+        let albumTracks = NetworkHandler( from: "https://theaudiodb.com/api/v1/json/1/track.php?m=\(albumIntID!)")
+        
+        albumTracks.getAlbumTracks { [weak self] result in
+            self?.albumTracks = result!
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -80,14 +84,14 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let selectedCell: TrackListViewCell = tableView.cellForRow(at: indexPath) as! TrackListViewCell
-       
+        
         saveEntityToCore(cell: selectedCell)
         
         
     }
     
     private func saveEntityToCore(cell: TrackListViewCell) {
-       
+        
         let favoriteEntity = NSEntityDescription.entity(forEntityName: "FavouriteTrack", in: AppDelegate.context)
         
         let newFavorite = NSManagedObject(entity: favoriteEntity!, insertInto: AppDelegate.context)
@@ -118,7 +122,7 @@ class AlbumDetailViewController: UIViewController, UITableViewDataSource, UITabl
         return String(converted)
         
     }
-
+    
 }
 
 

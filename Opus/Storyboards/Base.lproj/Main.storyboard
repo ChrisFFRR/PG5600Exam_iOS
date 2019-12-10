@@ -119,6 +119,12 @@
                                     <outlet property="delegate" destination="WBl-fb-H7y" id="ese-KP-pbH"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5gZ-TN-gtS">
+                                <rect key="frame" x="307" y="450.5" width="61.5" height="31.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                <color key="textColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
                         <constraints>
@@ -127,6 +133,7 @@
                             <constraint firstItem="0wp-f0-3ZP" firstAttribute="trailing" secondItem="527-u9-zez" secondAttribute="trailing" id="92t-Yr-22Y"/>
                             <constraint firstItem="6gz-2L-mc3" firstAttribute="leading" secondItem="527-u9-zez" secondAttribute="leading" constant="5" id="AwS-wL-8hM"/>
                             <constraint firstItem="dmd-Va-idU" firstAttribute="top" secondItem="6gz-2L-mc3" secondAttribute="bottom" constant="5" id="Iwt-RA-a86"/>
+                            <constraint firstItem="9fr-8t-9Ya" firstAttribute="top" secondItem="5gZ-TN-gtS" secondAttribute="bottom" constant="8" id="UXZ-Z8-rnS"/>
                             <constraint firstItem="0wp-f0-3ZP" firstAttribute="centerX" secondItem="527-u9-zez" secondAttribute="centerX" id="UYw-1q-JgC"/>
                             <constraint firstItem="527-u9-zez" firstAttribute="bottom" secondItem="0wp-f0-3ZP" secondAttribute="bottom" constant="367" id="biR-Sa-awP"/>
                             <constraint firstItem="527-u9-zez" firstAttribute="trailing" secondItem="6gz-2L-mc3" secondAttribute="trailing" constant="5" id="cYg-wq-x84"/>
@@ -136,7 +143,9 @@
                             <constraint firstItem="527-u9-zez" firstAttribute="trailing" secondItem="9fr-8t-9Ya" secondAttribute="trailing" constant="5" id="oPi-Pg-Qrp"/>
                             <constraint firstItem="6gz-2L-mc3" firstAttribute="top" secondItem="9fr-8t-9Ya" secondAttribute="bottom" constant="1" id="og8-sd-wk4"/>
                             <constraint firstItem="dmd-Va-idU" firstAttribute="leading" secondItem="527-u9-zez" secondAttribute="leading" constant="20" id="qgo-lI-6dc"/>
+                            <constraint firstItem="5gZ-TN-gtS" firstAttribute="leading" secondItem="0wp-f0-3ZP" secondAttribute="trailing" constant="-107" id="wHC-h1-5sQ"/>
                             <constraint firstItem="9fr-8t-9Ya" firstAttribute="top" secondItem="0wp-f0-3ZP" secondAttribute="bottom" constant="-5" id="yV7-ik-Jk2"/>
+                            <constraint firstItem="527-u9-zez" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="5gZ-TN-gtS" secondAttribute="trailing" symbolic="YES" id="zjn-84-vLb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="527-u9-zez"/>
                     </view>
@@ -145,12 +154,13 @@
                         <outlet property="albumArtist" destination="6gz-2L-mc3" id="U8m-nN-CVm"/>
                         <outlet property="albumImage" destination="0wp-f0-3ZP" id="Kuh-vp-kFd"/>
                         <outlet property="albumTitle" destination="9fr-8t-9Ya" id="6eH-mS-yHe"/>
+                        <outlet property="albumYearRel" destination="5gZ-TN-gtS" id="xHJ-Az-Isu"/>
                         <outlet property="trackContainer" destination="dmd-Va-idU" id="Uws-8T-Kn2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5m9-aj-NND" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5487" y="-846"/>
+            <point key="canvasLocation" x="5486.9565217391309" y="-846.42857142857144"/>
         </scene>
         <!--Search Album-->
         <scene sceneID="FBp-wt-3uU">
